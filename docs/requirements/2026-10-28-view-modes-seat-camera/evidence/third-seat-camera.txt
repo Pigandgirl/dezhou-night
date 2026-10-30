@@ -1,0 +1,20 @@
+﻿from PIL import Image,ImageDraw,ImageFont
+base='docs/requirements/2026-10-28-view-modes-seat-camera/evidence'
+imgs=[]
+for n in range(1,9):
+    im=Image.open(f'{base}/final-online-{n}.png').convert('RGB'); im.thumbnail((700,400)); imgs.append((n,im.copy()))
+w,h=1440,1800; sheet=Image.new('RGB',(w,h),(8,10,12)); d=ImageDraw.Draw(sheet); font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',30)
+for i,(n,im) in enumerate(imgs):
+    x=(i%2)*720; y=(i//2)*450; sheet.paste(im,(x+10,y+40))
+    label=f'{n} player(s)' + ('  waiting (min 2)' if n==1 else f'  models={n}/{n}')
+    d.text((x+12,y+8),label,fill=(240,220,180),font=font)
+sheet.save(f'{base}/online-1-to-8-grid.jpg',quality=90)
+@'
+固定座位/第三人称相机实测（1.1.22 / 129）
+- 第三人玩家：seatNo=1，heroDisplay=1
+- 场景座位：0、1、4；玩家自己的模型在1号位 visible=true
+- 镜头位置约(-2.36, ?, 2.36)，在1号位外侧，不再位于8号位
+- 第三人称默认zoom=2.2
+- 第一人称设置：hero模型隐藏，userZoom=1
+- 2–8人：seats/rigs均一一对应
+- pageerror=0

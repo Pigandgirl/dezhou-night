@@ -1,0 +1,10 @@
+﻿P0/P1 实现证据
+- 当前操作玩家焦点：scene.setTurn(1) 后 actorLookOffset=[-0.2520,0.02,-0.0664]，水平偏移远小于8°安全范围；截图 actor-focus.png。
+- 聚光灯/名牌：setTurn 激活当前玩家 glow/常亮名牌，其他玩家名牌降低透明度。
+- 观战：scene.mode=spectator，spectatorBadge 显示，card-viewer display=none，可围绕牌桌拖动/滚轮缩放；截图 spectator-mode.png。
+- 全弃牌：服务端 buildSettlement(showdown=false) 不返回 hole/bestCards/handName/score；state settle 以 reveal=false 广播；客户端 rebuildShowdown 在非摊牌时直接返回；HUD 不渲染底牌槽。
+- 后台宽限：SSE 断开不再立即 online=false，90秒后才离线；SSE 重连清除计时器；前端连接错误5秒内不打扰。
+- 语音：16k PCM raw -> 8k 单声道 + VAD 静音门限 + 20ms 帧；静音超过8帧停发。
+- 中英术语：audio.speak 50% 概率走英文 TTS（check/call/bet/raise/all in/fold），其余走中文语音包。
+- 构建：1.0.100 (versionCode 101)。
+- 未验证：真实4麦克风压测、Opus编码、真机后台60秒、全弃牌真实对局抓包。

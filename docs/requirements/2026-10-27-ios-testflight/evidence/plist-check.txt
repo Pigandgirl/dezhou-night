@@ -1,0 +1,10 @@
+CFBundleIdentifier='com.dezhounight.poker'
+CFBundleDisplayName='德扑之夜'
+CFBundleShortVersionString='1.2.0'
+CFBundleVersion='1'
+DZAppURL='http://192.144.159.220:8080/play'
+ITSAppUsesNonExemptEncryption=False
+NSMicrophoneUsageDescription='牌桌语音聊天需要使用麦克风。只有你主动开启房间语音后才会录音。'
+NSAppTransportSecurity={'NSAllowsArbitraryLoads': True}
+CFBundleDisplayName codepoints=0x5fb7 0x6251 0x4e4b 0x591c
+PrivacyInfo.xcprivacy=True

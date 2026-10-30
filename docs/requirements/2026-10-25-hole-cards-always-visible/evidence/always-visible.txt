@@ -1,0 +1,11 @@
+﻿常显测试
+手机 844x390:
+actionbar=actionbar（操作条正在显示）
+cardViewer class=card-viewer
+display=flex
+rect x=150 y=6 w=163.65625 h=87
+桌面 1200x540:
+actionbar=actionbar
+display=flex
+rect x=228 y=8 w=188.953125 h=115
+页面错误：无

@@ -1,0 +1,7 @@
+﻿# Cloudflare quick tunnel probe 2026-10-27 20:01:52 +08:00
+URL: https://shops-independence-spokesman-phrase.trycloudflare.com/play
+GET /play:
+HTTP/1.1 302 Found
+Location: https://dnspod.qcloud.com/static/webblock.html?d=shops-independence-spokesman-phrase.trycloudflare.com
+GET /api/health: 302
+Conclusion: HTML navigation is redirected to dnspod.qcloud.com/webblock in this network; not usable for users.

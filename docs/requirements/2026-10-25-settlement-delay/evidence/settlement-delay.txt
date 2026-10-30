@@ -1,0 +1,6 @@
+﻿结算延迟测试
+结算摘要：全桌总筹码 200 · 本手底池 48 · 筹码归零：B
+调用 maybeShowOnlineGameOver 后立即检查：onlineGameOver hidden=true
+等待 15.6 秒后：onlineGameOver hidden=false
+pageerror：无
+说明：结算画面先展示，确认框延迟15秒弹出；结算底部显示总筹码/底池/归零玩家。

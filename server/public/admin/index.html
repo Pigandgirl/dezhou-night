@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>德扑之夜 · 后台管理</title>
+<style>
+  :root {
+    --bg: #05070a;
+    --panel: #0b0f14;
+    --panel-2: #11161d;
+    --line: rgba(217, 185, 119, 0.16);
+    --gold: #d9b977;
+    --gold-bright: #f0d79f;
+    --cream: #f4ecdd;
+    --faint: rgba(244, 236, 221, 0.45);
+    --danger: #d9736a;
+    --ok: #79c08a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(1200px 600px at 15% -10%, #141a22, transparent), var(--bg);
+    color: var(--cream);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 13px;
+  }
+  button, input, select { font-family: inherit; }
+  button { cursor: pointer; }
+  .hidden { display: none !important; }
+
+  /* 登录 */
+  .login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .login-card {
+    width: min(380px, 100%);
+    padding: 34px 32px 28px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: linear-gradient(170deg, rgba(20, 26, 34, 0.96), rgba(8, 11, 15, 0.96));
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  }
+  .login-card h1 { margin: 0 0 6px; font-size: 20px; letter-spacing: 0.08em; }
+  .login-card h1 span { color: var(--gold); }
+  .login-card p { margin: 0 0 22px; font-size: 11px; color: var(--faint); }
+  .field { display: block; margin-bottom: 12px; }
+  .field em { display: block; margin-bottom: 6px; font-style: normal; font-size: 10px; letter-spacing: 0.16em; color: var(--faint); }
+  input, select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(244, 236, 221, 0.12);
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--cream);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.18s ease;
+  }
+  input:focus, select:focus { border-color: rgba(217, 185, 119, 0.55); }
+  .btn {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(217, 185, 119, 0.32);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--cream);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    transition: all 0.18s ease;
+  }
+  .btn:hover { border-color: var(--gold); color: var(--gold-bright); }
+  .btn-primary {
+    border: none;
+    background: linear-gradient(180deg, #e8cf98, #c9a86a);
+    color: #201a10;
+    font-weight: 600;
+  }
+  .btn-primary:hover { filter: brightness(1.06); color: #201a10; }
+  .btn-ghost { border-color: rgba(244, 236, 221, 0.14); }
+  .btn-danger { border-color: rgba(217, 115, 106, 0.45); color: var(--danger); }
+  .btn-block { width: 100%; }
+  .error { min-height: 16px; margin: 6px 0 10px; font-size: 11px; color: var(--danger); }
+
+  /* 布局 */
+  .app { display: flex; min-height: 100vh; }
+  .side {
+    width: 212px;
+    flex: 0 0 212px;
+    padding: 26px 18px;
+    border-right: 1px solid rgba(244, 236, 221, 0.07);
+    background: rgba(6, 9, 12, 0.72);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .brand { margin-bottom: 22px; }
+  .brand b { display: block; font-size: 15px; letter-spacing: 0.1em; }
+  .brand b span { color: var(--gold); }
+  .brand em { font-style: normal; font-size: 9.5px; letter-spacing: 0.28em; color: var(--faint); }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 9px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: rgba(244, 236, 221, 0.62);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-align: left;
+    transition: all 0.16s ease;
+  }
+  .nav-btn:hover { background: rgba(255, 255, 255, 0.04); color: var(--cream); }
+  .nav-btn.active {
+    border-color: rgba(217, 185, 119, 0.42);
+    background: linear-gradient(100deg, rgba(217, 185, 119, 0.16), rgba(217, 185, 119, 0.04));
+    color: var(--gold-bright);
+  }
+  .nav-spacer { flex: 1; }
+  .main { flex: 1; padding: 26px 30px 48px; min-width: 0; }
+  .main-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+  .main-head h2 { margin: 0; font-size: 18px; letter-spacing: 0.06em; }
+  .main-head p { margin: 4px 0 0; font-size: 10.5px; color: var(--faint); letter-spacing: 0.1em; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 22px; }
+  .stat {
+    padding: 16px 16px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  }
+  .stat em { font-style: normal; font-size: 9.5px; letter-spacing: 0.2em; color: var(--faint); }
+  .stat b { display: block; margin-top: 8px; font-size: 24px; font-weight: 600; color: var(--gold-bright); letter-spacing: 0.02em; }
+  .stat small { display: block; margin-top: 4px; font-size: 9px; color: rgba(244, 236, 221, 0.3); }
+
+  .card {
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: rgba(11, 15, 20, 0.7);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(244, 236, 221, 0.07);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .card-body { padding: 14px 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .row input { width: auto; min-width: 110px; height: 36px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(244, 236, 221, 0.06); white-space: nowrap; }
+  th { font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; color: var(--faint); }
+  tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
+  td.num { color: var(--gold-bright); font-variant-numeric: tabular-nums; }
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(244, 236, 221, 0.14);
+    color: var(--faint);
+  }
+  .pill.on { border-color: rgba(121, 192, 138, 0.5); color: var(--ok); }
+  .pill.run { border-color: rgba(217, 185, 119, 0.5); color: var(--gold); }
+  .table-wrap { overflow-x: auto; }
+  .empty { padding: 26px 0; text-align: center; font-size: 11.5px; color: var(--faint); }
+  .toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .toolbar input { width: 200px; height: 36px; }
+  .toolbar .btn { height: 36px; }
+  .toolbar select { height: 36px; padding: 0 9px; border-radius: 9px; border: 1px solid var(--line); background: var(--panel-2); color: var(--cream); font-size: 12px; }
+  .muted-small { display:block; margin-top:3px; font-size:9px; color: var(--faint); }
+  .pager { display: flex; gap: 8px; align-items: center; justify-content: flex-end; padding: 10px 16px; }
+  .code-chip {
+    display: inline-block;
+    padding: 4px 9px;
+    margin: 3px 4px 0 0;
+    border-radius: 7px;
+    border: 1px dashed rgba(217, 185, 119, 0.4);
+    background: rgba(217, 185, 119, 0.07);
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    color: var(--gold-bright);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  }
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%) translateY(20px);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: rgba(16, 20, 26, 0.96);
+    color: var(--cream);
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.24s ease;
+    z-index: 50;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  dialog.editor {
+    width: min(420px, calc(100vw - 32px));
+    padding: 22px 24px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: #0d1218;
+    color: var(--cream);
+  }
+  dialog.editor::backdrop { background: rgba(0, 0, 0, 0.66); }
+  dialog.editor h3 { margin: 0 0 14px; font-size: 15px; letter-spacing: 0.06em; }
+  dialog.editor .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  dialog.editor footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  .feature-list { display: flex; flex-direction: column; }
+  .feature-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px;
+    border-bottom: 1px solid rgba(244, 236, 221, 0.07);
+    cursor: pointer;
+  }
+  .feature-row:last-child { border-bottom: none; }
+  .feature-row b { display: block; color: var(--cream); font-size: 13px; font-weight: 500; }
+  .feature-row em { display: block; margin-top: 3px; color: var(--faint); font-style: normal; font-size: 10.5px; }
+  .feature-row input { position: absolute; opacity: 0; pointer-events: none; }
+  .feature-switch {
+    position: relative;
+    flex: 0 0 auto;
+    width: 44px;
+    height: 24px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    transition: background 0.2s ease;
+  }
+  .feature-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(244, 236, 221, 0.6);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .feature-row input:checked + .feature-switch { background: rgba(121, 192, 138, 0.7); }
+  .feature-row input:checked + .feature-switch::after { transform: translateX(20px); background: #0c1a0f; }
+  .feature-row.master {
+    background: rgba(217, 185, 119, 0.045);
+  }
+  .feature-row.master b {
+    color: var(--gold-bright);
+  }
+</style>
+</head>
+<body>
+
+<div id="loginView" class="login-wrap">
+  <form class="login-card" id="loginForm">
+    <h1>德扑<span>之夜</span> · 管理后台</h1>
+    <p>用户 / 对局 / 房间管理</p>
+    <label class="field"><em>管理员账号</em><input id="loginUser" autocomplete="username" placeholder="ADMIN_USER" /></label>
+    <label class="field"><em>密码</em><input id="loginPass" type="password" autocomplete="current-password" placeholder="ADMIN_PASSWORD" /></label>
+    <p class="error" id="loginError"></p>
+    <button class="btn btn-primary btn-block" type="submit">登录</button>
+  </form>
+</div>
+
+<div id="appView" class="app hidden">
+  <aside class="side">
+    <div class="brand"><b>德扑<span>之夜</span></b><em>ADMIN CONSOLE</em></div>
+    <button class="nav-btn active" data-view="overview">概览</button>
+    <button class="nav-btn" data-view="users">用户管理</button>
+    <button class="nav-btn" data-view="history">对局记录</button>
+    <button class="nav-btn" data-view="rooms">房间</button>
+    <button class="nav-btn" data-view="features">权限开关</button>
+    <div class="nav-spacer"></div>
+    <button class="nav-btn" id="btnRefresh">刷新数据</button>
+    <button class="nav-btn" id="btnBackGame">返回游戏</button>
+    <button class="nav-btn" id="btnLogout">退出后台</button>
+  </aside>
+
+  <main class="main">
+    <div class="main-head">
+      <div><h2 id="viewTitle">概览</h2><p id="viewSub">系统运行状态与关键指标</p></div>
+      <div class="toolbar"><span class="pill run" id="adminBadge">已登录</span></div>
+    </div>
+
+    <section id="viewOverview">
+      <div class="stats" id="overviewStats"></div>
+      <div class="card">
+        <div class="card-head"><span>当前房间</span><span id="roomCountLabel"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>房间</th><th>类型</th><th>状态</th><th>在线 / 座位</th><th>操作</th></tr></thead>
+            <tbody id="overviewRooms"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span>在线玩家</span><span id="onlineCountLabel"></span></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>玩家</th><th>状态</th><th>房间 / 座位</th><th>当前对局</th><th>最后活跃</th></tr></thead>
+          <tbody id="onlineRows"></tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span>进行中游戏</span><span id="gameCountLabel"></span></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>房间</th><th>类型</th><th>阶段</th><th>手数</th><th>在线玩家</th></tr></thead>
+          <tbody id="gameRows"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <section id="viewUsers" class="hidden">
+      <div class="card">
+        <div class="card-head">
+          <span>用户列表</span>
+          <div class="toolbar">
+            <input id="userSearch" placeholder="搜索用户名 / 昵称" /><select id="userStatus"><option value="">全部状态</option><option value="online">在线</option><option value="offline">离线</option></select><select id="userSort"><option value="createdAt">注册时间</option><option value="lastSeen">最后活跃</option><option value="name">昵称</option><option value="username">用户名</option><option value="chips">筹码</option><option value="points">积分</option><option value="plays">游玩次数</option><option value="rounds">对局</option></select><button class="btn" id="btnUserOrder">降序</button><button class="btn" id="btnUserSearch">搜索</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>用户名</th><th>昵称</th><th>积分</th><th>筹码</th><th>对局</th><th>在线状态</th><th>当前房间</th><th>最后活跃</th><th>注册时间</th><th>操作</th></tr></thead>
+            <tbody id="userRows"></tbody>
+          </table>
+        </div>
+        <div class="pager"><span id="userPageLabel"></span><button class="btn" id="userPrev">上一页</button><button class="btn" id="userNext">下一页</button></div>
+      </div>
+    </section>
+
+    <section id="viewHistory" class="hidden">
+      <div class="card">
+        <div class="card-head"><span>对局记录</span><span>最近 500 场</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>房间</th><th>类型</th><th>开始时间</th><th>结束时间</th><th>手数</th><th>玩家</th><th>结束原因</th></tr></thead>
+            <tbody id="historyRows"></tbody>
+          </table>
+        </div>
+        <div class="pager"><span id="historyPageLabel"></span><button class="btn" id="historyPrev">上一页</button><button class="btn" id="historyNext">下一页</button></div>
+      </div>
+    </section>
+
+    <section id="viewRooms" class="hidden">
+      <div class="card">
+        <div class="card-head"><span>房间管理</span><span>关闭后会重置匹配房或解散好友房</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>房间</th><th>类型</th><th>状态</th><th>在线 / 座位</th><th>操作</th></tr></thead>
+            <tbody id="roomRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="viewFeatures" class="hidden">
+      <div class="card">
+        <div class="card-head"><span>在线权限开关</span><span>对所有用户即时生效</span></div>
+        <div class="card-body feature-list">
+          <label class="feature-row master">
+            <div>
+              <b>在线游戏总开关</b>
+              <em>一键关闭在线匹配和好友房，只保留单机模式；已开局对局不受影响</em>
+            </div>
+            <input type="checkbox" id="featureOnline" />
+            <span class="feature-switch"></span>
+          </label>
+          <label class="feature-row">
+            <div>
+              <b>在线快速匹配</b>
+              <em>关闭后所有用户不能进入匹配房；已开局的对局不受影响</em>
+            </div>
+            <input type="checkbox" id="featureMatch" />
+            <span class="feature-switch"></span>
+          </label>
+          <label class="feature-row">
+            <div>
+              <b>好友房 / 局域网</b>
+              <em>关闭后所有用户不能创建或加入好友房；已开局的对局不受影响</em>
+            </div>
+            <input type="checkbox" id="featureLan" />
+            <span class="feature-switch"></span>
+          </label>
+        </div>
+        <div class="card-body row">
+          <label class="field" style="margin:0;min-width:210px;flex:1">
+            <em>筹码补充间隔（分钟）</em>
+            <input id="featureRefillMinutes" type="number" min="1" max="1440" step="1" value="60" />
+          </label>
+          <label class="field" style="margin:0;min-width:170px;flex:1">
+            <em>每小时补足目标</em>
+            <input id="featureGrant" type="number" min="1" max="100" step="10" value="100" />
+          </label>
+          <span class="pill">每小时检测 · 低于 100 补足到 100</span>
+        </div>
+        <div class="card-body row">
+          <button class="btn btn-primary" id="btnSaveFeatures">保存权限</button>
+          <span class="pill" id="featureState">请选择</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog class="editor" id="userDialog">
+  <h3 id="userDialogTitle">编辑用户</h3>
+  <form id="userForm">
+    <label class="field"><em>昵称</em><input id="editName" /></label>
+    <div class="grid2">
+      <label class="field"><em>积分</em><input id="editPoints" type="number" min="0" /></label>
+      <label class="field"><em>筹码</em><input id="editChips" type="number" min="0" /></label>
+      <label class="field"><em>重置密码（可空）</em><input id="editPassword" placeholder="留空不改" /></label>
+    </div>
+    <p class="error" id="editError"></p>
+    <footer>
+      <button class="btn btn-ghost" type="button" id="btnEditCancel">取消</button>
+      <button class="btn btn-primary" type="submit">保存</button>
+    </footer>
+  </form>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const TOKEN_KEY = 'dezhouAdminToken';
+  const hashParams = new URLSearchParams(String(location.hash || '').replace(/^#/, ''));
+  const hashToken = hashParams.get('token') || '';
+  if (hashToken) {
+    localStorage.setItem(TOKEN_KEY, hashToken);
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  const state = {
+    view: 'overview',
+    token: hashToken || localStorage.getItem(TOKEN_KEY) || '',
+    users: { page: 1, total: 0, size: 20, q: '', status: '', sort: 'createdAt', order: 'desc' },
+    history: { page: 1, total: 0, size: 20 },
+    editing: '',
+    features: { matchEnabled: true, lanEnabled: true, chipRefillMinutes: 60, chipGrant: 100 },
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const toastEl = $('toast');
+  let toastTimer = 0;
+
+  function toast(message) {
+    toastEl.textContent = message;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  }
+
+  function fmtTime(ms) {
+    if (!ms) return '—';
+    const d = new Date(ms);
+    const pad = (n) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  async function api(path, options = {}) {
+    const method = options.method || 'GET';
+    const res = await fetch(`/api/admin${path}`, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${state.token}`,
+      },
+      body: method === 'GET' ? undefined : JSON.stringify(options.body || {}),
+    });
+    let data = null;
+    try { data = await res.json(); } catch { data = null; }
+    if (res.status === 401) {
+      logout(true);
+      throw new Error('登录已失效，请重新登录');
+    }
+    if (!res.ok) throw new Error((data && data.error) || `请求失败 (${res.status})`);
+    return data;
+  }
+
+  async function login(event) {
+    event.preventDefault();
+    const username = $('loginUser').value.trim();
+    const password = $('loginPass').value;
+    $('loginError').textContent = '';
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok) throw new Error((data && data.error) || '登录失败');
+      state.token = data.token;
+      localStorage.setItem(TOKEN_KEY, data.token);
+      enterApp();
+    } catch (error) {
+      $('loginError').textContent = error.message;
+    }
+  }
+
+  function logout(silent) {
+    stopLive();
+    localStorage.removeItem(TOKEN_KEY);
+    state.token = '';
+    $('appView').classList.add('hidden');
+    $('loginView').classList.remove('hidden');
+    if (!silent) toast('已退出后台');
+  }
+
+  let liveTimer = 0;
+
+  function startLive() {
+    if (liveTimer) clearInterval(liveTimer);
+    liveTimer = setInterval(() => {
+      if (document.hidden || !state.token) return;
+      if (state.view === 'overview' || state.view === 'rooms') refresh(true);
+    }, 5000);
+  }
+
+  function stopLive() {
+    if (liveTimer) clearInterval(liveTimer);
+    liveTimer = 0;
+  }
+
+  function enterApp() {
+    $('loginView').classList.add('hidden');
+    $('appView').classList.remove('hidden');
+    switchView('overview');
+    startLive();
+  }
+
+  const VIEW_META = {
+    overview: ['概览', '系统运行状态与关键指标'],
+    users: ['用户管理', '查询、修改积分/筹码、重置密码'],
+    history: ['对局记录', '最近 500 场开局与结算记录'],
+    rooms: ['房间', '查看并关闭在线房间'],
+    features: ['权限开关', '控制所有用户的在线匹配与好友房权限'],
+  };
+
+  function switchView(view) {
+    state.view = view;
+    document.querySelectorAll('.nav-btn[data-view]').forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.view === view);
+    });
+    ['overview', 'users', 'history', 'rooms', 'features'].forEach((key) => {
+      $(`view${key[0].toUpperCase()}${key.slice(1)}`).classList.toggle('hidden', key !== view);
+    });
+    const meta = VIEW_META[view];
+    $('viewTitle').textContent = meta[0];
+    $('viewSub').textContent = meta[1];
+    refresh();
+  }
+
+  async function refresh(silent = false) {
+    try {
+      if (state.view === 'overview') await loadOverview();
+      else if (state.view === 'users') await loadUsers();
+      else if (state.view === 'history') await loadHistory();
+      else if (state.view === 'rooms') await loadOverview(true);
+      else if (state.view === 'features') await loadFeatures();
+    } catch (error) {
+      toast(error.message);
+    }
+  }
+
+  function roomRow(room) {
+    const started = room.started ? '<span class="pill run">已开局</span>' : '<span class="pill">等待中</span>';
+    const names = Array.isArray(room.playerNames) ? room.playerNames.join('、') : '';
+    return `<tr>
+      <td>${room.name || room.code} <span class="pill">${room.code}</span>${names ? `<small class="muted-small">${names}</small>` : ''}</td>
+      <td>${room.match ? '匹配房' : '好友房'}</td>
+      <td>${started}${room.phase ? ` <small class="muted-small">${room.phase}</small>` : ''}</td>
+      <td class="num">${room.online} / ${room.seats}</td>
+      <td><button class="btn btn-danger" data-close-room="${room.code}">关闭</button></td>
+    </tr>`;
+  }
+
+  function renderFeatures() {
+    const online = state.features.matchEnabled !== false && state.features.lanEnabled !== false;
+    $('featureOnline').checked = online;
+    $('featureMatch').checked = state.features.matchEnabled !== false;
+    $('featureLan').checked = state.features.lanEnabled !== false;
+    $('featureRefillMinutes').value = state.features.chipRefillMinutes || 60;
+    $('featureGrant').value = state.features.chipGrant || 100;
+    const m = state.features.matchEnabled !== false ? '匹配开' : '匹配关';
+    const l = state.features.lanEnabled !== false ? '好友房开' : '好友房关';
+    const minutes = state.features.chipRefillMinutes || 60;
+    const interval = minutes % 60 === 0 ? `${minutes / 60}小时` : `${minutes}分钟`;
+    const grant = state.features.chipGrant || 100;
+    $('featureState').textContent = online
+      ? `在线开 · ${m} · ${l} · 每${interval}检测，低于${grant}补足`
+      : `仅单机 · 在线已关闭 · 每${interval}检测，低于${grant}补足`;
+    $('featureState').className = `pill ${online ? 'on' : ''}`;
+  }
+
+  async function loadFeatures() {
+    const data = await api('/features');
+    state.features = data.features || state.features;
+    renderFeatures();
+  }
+
+  async function saveFeatures() {
+    const data = await api('/features', {
+      method: 'POST',
+      body: {
+        onlineEnabled: $('featureOnline').checked,
+        matchEnabled: $('featureMatch').checked,
+        lanEnabled: $('featureLan').checked,
+        chipRefillMinutes: Number($('featureRefillMinutes').value) || 60,
+        chipGrant: Number($('featureGrant').value) || 100,
+      },
+    });
+    state.features = data.features || state.features;
+    renderFeatures();
+    toast(`权限已更新：${$('featureState').textContent}`);
+  }
+
+  async function loadOverview(roomsOnly) {
+    const data = await api('/overview');
+    if (!roomsOnly) {
+      $('overviewStats').innerHTML = [
+        ['注册用户', data.users, `在线账号 ${data.onlineUsers}`],
+        ['在线玩家', data.onlinePlayers ?? 0, `房间 ${data.onlineRoomPlayers ?? 0} · 大厅 ${data.onlineLobby ?? 0}`],
+        ['进行中游戏', data.activeGames ?? 0, `在线房间 ${data.rooms.length} · 观战 ${data.spectators ?? 0}`],
+        ['服务器连接', data.connections ?? 0, `运行 ${Math.floor((data.uptime || 0) / 60)}分钟`],
+        ['服务器内存', `${data.memoryMb ?? 0} MB`, data.serverTime ? '服务运行中' : '—'],
+        ['累计对局', data.todayRounds, `历史 ${data.history} 条`],
+      ].map(([label, value, note]) => `<div class="stat"><em>${label}</em><b>${value}</b><small>${note}</small></div>`).join('');
+
+      const online = Array.isArray(data.onlineList) ? data.onlineList : [];
+      $('onlineCountLabel').textContent = `${online.length} 人在线`;
+      $('onlineRows').innerHTML = online.length
+        ? online.map((item) => {
+          const where = item.inRoom
+            ? `${item.roomCode || ''}${item.seatNo >= 0 ? ` · ${item.seatNo + 1}号位` : ''}${item.spectator ? ' · 观战' : ''}`
+            : '大厅';
+          const phase = item.inRoom ? `${item.phase || '等待'}${item.hand ? ` · 第${item.hand}手` : ''}` : '—';
+          return `<tr>
+            <td><b>${item.name || item.username}</b><small class="muted-small">@${item.username}</small></td>
+            <td><span class="pill on">在线</span></td>
+            <td>${where}</td><td>${phase}</td><td>${fmtTime(item.lastSeen)}</td>
+          </tr>`;
+        }).join('')
+        : '<tr><td colspan="5" class="empty">当前没有在线玩家</td></tr>';
+
+      const games = Array.isArray(data.games) ? data.games : [];
+      $('gameCountLabel').textContent = `${games.length} 局进行中`;
+      $('gameRows').innerHTML = games.length
+        ? games.map((game) => `<tr>
+          <td>${game.name || game.code} <span class="pill">${game.code}</span></td>
+          <td>${game.match ? '匹配房' : '好友房'}</td>
+          <td>${game.phase || '进行中'}${game.hand ? ` · 第${game.hand}手` : ''}</td>
+          <td class="num">${game.hand || 0}</td>
+          <td>${(game.players || []).join('、') || '—'}</td>
+        </tr>`).join('')
+        : '<tr><td colspan="5" class="empty">当前没有进行中的游戏</td></tr>';
+    }
+    $('roomCountLabel').textContent = `${data.rooms.length} 个房间`;
+    const rows = data.rooms.map(roomRow).join('');
+    $('overviewRooms').innerHTML = rows || '<tr><td colspan="5" class="empty">当前没有在线房间</td></tr>';
+    $('roomRows').innerHTML = rows || '<tr><td colspan="5" class="empty">当前没有在线房间</td></tr>';
+  }
+
+  function userRow(user) {
+    const where = user.inRoom
+      ? `${user.roomCode || ''}${user.seatNo >= 0 ? ` · ${user.seatNo + 1}号位` : ''}${user.spectator ? ' · 观战' : ''}`
+      : (user.online ? '大厅' : '—');
+    return `<tr>
+      <td><b>${user.username}</b></td>
+      <td>${user.name}</td>
+      <td class="num">${user.points}</td>
+      <td class="num">${user.chips}</td>
+      <td class="num">${user.rounds}</td>
+      <td>${user.online ? '<span class="pill on">在线</span>' : '<span class="pill">离线</span>'}</td>
+      <td>${where}</td>
+      <td>${user.lastSeen ? fmtTime(user.lastSeen) : '—'}</td>
+      <td>${fmtTime(user.createdAt)}</td>
+      <td>
+        <button class="btn" data-edit-user="${user.username}">编辑</button>
+        <button class="btn btn-danger" data-del-user="${user.username}">删除</button>
+      </td>
+    </tr>`;
+  }
+
+  async function loadUsers() {
+    const query = new URLSearchParams({
+      page: String(state.users.page),
+      q: state.users.q,
+      status: state.users.status || '',
+      sort: state.users.sort || 'createdAt',
+      order: state.users.order || 'desc',
+    });
+    const data = await api(`/users?${query.toString()}`);
+    state.users.total = data.total;
+    state.users.size = data.size;
+    state.usersCache = data.users;
+    $('userRows').innerHTML = data.users.length
+      ? data.users.map(userRow).join('')
+      : '<tr><td colspan="10" class="empty">没有匹配的用户</td></tr>';
+    const pages = Math.max(1, Math.ceil(data.total / data.size));
+    $('userPageLabel').textContent = `共 ${data.total} 位用户 · 在线 ${data.onlineCount ?? 0} / 离线 ${data.offlineCount ?? 0} · 第 ${data.page}/${pages} 页`;
+  }
+
+  async function loadHistory() {
+    const data = await api(`/history?page=${state.history.page}`);
+    $('historyRows').innerHTML = data.history.length
+      ? data.history.map((item) => `<tr>
+          <td>${item.name || item.code} <span class="pill">${item.code}</span></td>
+          <td>${item.match ? '匹配房' : '好友房'}</td>
+          <td>${fmtTime(item.startedAt)}</td>
+          <td>${item.endedAt ? fmtTime(item.endedAt) : '<span class="pill run">进行中</span>'}</td>
+          <td class="num">${item.hands || 0}</td>
+          <td>${(item.players || []).map((p) => p.name).join('、') || '—'}</td>
+          <td>${item.reason || '—'}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="7" class="empty">暂无对局记录</td></tr>';
+    const pages = Math.max(1, Math.ceil(data.total / data.size));
+    $('historyPageLabel').textContent = `共 ${data.total} 场 · 第 ${data.page}/${pages} 页`;
+  }
+
+  function openUserDialog(username) {
+    const user = (state.usersCache || []).find((item) => item.username === username);
+    if (!user) return;
+    state.editing = username;
+    $('userDialogTitle').textContent = `编辑用户 · ${username}`;
+    $('editName').value = user.name || '';
+    $('editPoints').value = user.points;
+    $('editChips').value = user.chips;
+    $('editPassword').value = '';
+    $('editError').textContent = '';
+    $('userDialog').showModal();
+  }
+
+  async function saveUser(event) {
+    event.preventDefault();
+    try {
+      await api('/users/update', {
+        method: 'POST',
+        body: {
+          username: state.editing,
+          name: $('editName').value.trim(),
+          points: Number($('editPoints').value) || 0,
+          chips: Number($('editChips').value) || 0,
+          password: $('editPassword').value.trim() || undefined,
+        },
+      });
+      $('userDialog').close();
+      toast('已保存');
+      await loadUsers();
+    } catch (error) {
+      $('editError').textContent = error.message;
+    }
+  }
+
+  document.addEventListener('click', async (event) => {
+    const copy = event.target.closest('[data-copy]');
+    if (copy) {
+      const text = copy.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+        toast(`已复制 ${text}`);
+      } catch {
+        toast(text);
+      }
+      return;
+    }
+    const edit = event.target.closest('[data-edit-user]');
+    if (edit) { openUserDialog(edit.dataset.editUser); return; }
+    const del = event.target.closest('[data-del-user]');
+    if (del) {
+      const name = del.dataset.delUser;
+      if (!confirm(`确定删除用户 ${name}？该操作不可恢复。`)) return;
+      try {
+        await api('/users/delete', { method: 'POST', body: { username: name } });
+        toast('用户已删除');
+        await loadUsers();
+      } catch (error) { toast(error.message); }
+      return;
+    }
+    const closeRoom = event.target.closest('[data-close-room]');
+    if (closeRoom) {
+      if (!confirm(`关闭房间 ${closeRoom.dataset.closeRoom}？`)) return;
+      try {
+        await api('/rooms/close', { method: 'POST', body: { code: closeRoom.dataset.closeRoom } });
+        toast('房间已关闭');
+        await refresh();
+      } catch (error) { toast(error.message); }
+    }
+  });
+
+  $('loginForm').addEventListener('submit', login);
+  $('btnLogout').addEventListener('click', () => logout());
+  $('btnRefresh').addEventListener('click', () => refresh());
+  $('btnBackGame').addEventListener('click', () => { location.href = '/play'; });
+  $('btnSaveFeatures').addEventListener('click', () => {
+    saveFeatures().catch((error) => toast(error.message));
+  });
+  $('featureOnline').addEventListener('change', () => {
+    $('featureMatch').checked = $('featureOnline').checked;
+    $('featureLan').checked = $('featureOnline').checked;
+    $('featureState').textContent = $('featureOnline').checked ? '在线开' : '仅单机 · 在线已关闭';
+    $('featureState').className = `pill ${$('featureOnline').checked ? 'on' : ''}`;
+  });
+  ['featureMatch', 'featureLan'].forEach((id) => {
+    $(id).addEventListener('change', () => {
+      $('featureOnline').checked = $('featureMatch').checked && $('featureLan').checked;
+    });
+  });
+  document.querySelectorAll('.nav-btn[data-view]').forEach((btn) => {
+    btn.addEventListener('click', () => switchView(btn.dataset.view));
+  });
+  $('btnUserSearch').addEventListener('click', () => { state.users.page = 1; state.users.q = $('userSearch').value.trim(); loadUsers(); });
+  $('userSearch').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') { state.users.page = 1; state.users.q = $('userSearch').value.trim(); loadUsers(); }
+  });
+  const reloadUsers = () => { state.users.page = 1; loadUsers(); };
+  $('userStatus').addEventListener('change', () => { state.users.status = $('userStatus').value; reloadUsers(); });
+  $('userSort').addEventListener('change', () => { state.users.sort = $('userSort').value; reloadUsers(); });
+  $('btnUserOrder').addEventListener('click', () => { state.users.order = state.users.order === 'asc' ? 'desc' : 'asc'; $('btnUserOrder').textContent = state.users.order === 'asc' ? '升序' : '降序'; reloadUsers(); });
+  $('userPrev').addEventListener('click', () => { state.users.page = Math.max(1, state.users.page - 1); loadUsers(); });
+  $('userNext').addEventListener('click', () => { state.users.page += 1; loadUsers(); });
+  $('historyPrev').addEventListener('click', () => { state.history.page = Math.max(1, state.history.page - 1); loadHistory(); });
+  $('historyNext').addEventListener('click', () => { state.history.page += 1; loadHistory(); });
+  $('userForm').addEventListener('submit', saveUser);
+  $('btnEditCancel').addEventListener('click', () => $('userDialog').close());
+
+  if (state.token) enterApp();
+  else $('loginUser').focus();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿麦克风测试
+testing=true
+status=麦克风正常，正在收音
+button=停止测试
+audioContext=running
+testStream=true

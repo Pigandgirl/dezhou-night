@@ -1,0 +1,13 @@
+﻿中途加入玩家第一手底牌（1.1.29 / 136）
+- 第三人加入，下一手：hand=6
+- heroHoleHand=6
+- heroHole=[4♠,7♣]
+- 自己 HUD 显示 4♠ 7♣
+- spectator=false
+- pageerror=0
+
+多路语音：
+- 3个玩家同时发语音帧：HTTP 200 / 200 / 200（无409）
+- 客户端独立时间线：pids [2,3,4]，remoteTimelines=3
+- playbackGain=3（默认大）
+- DynamicsCompressor=true

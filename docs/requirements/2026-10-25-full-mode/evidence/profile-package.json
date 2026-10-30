@@ -1,0 +1,17 @@
+{
+  "name": "dsh-profile-web",
+  "private": true,
+  "dependencies": {
+    "@local/dsh-full-mode": "link:D:/software/project/dezhou/.dsh-plugins/full-mode"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "@local/dsh-full-mode"
+      ],
+      "patchReload": "live"
+    }
+  }
+}

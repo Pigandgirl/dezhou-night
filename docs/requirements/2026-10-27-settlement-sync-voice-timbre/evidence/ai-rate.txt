@@ -1,0 +1,4 @@
+﻿单机 AI 播报速率实测（1.1.14 / 121）
+name/action rate = 1
+pageerror = 0
+名称结束 → 操作开始 = 0ms

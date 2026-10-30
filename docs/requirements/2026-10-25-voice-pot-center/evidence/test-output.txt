@@ -1,0 +1,5 @@
+﻿音色/底池测试
+- 语音：audio.speak 后 speakSystemText 调用=1，playVoiceKeys=0；中文和英文都走同一 TTS 路径；未做真人听感。
+- 底池：scene.potStack.labelSprite.visible=true，pot=48；顶部 .potbox display=none；底池标签位于牌桌中央筹码堆上。
+- 页面错误：无。
+- 版本：1.0.103 (104)。

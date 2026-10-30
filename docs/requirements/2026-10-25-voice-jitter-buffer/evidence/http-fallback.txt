@@ -1,0 +1,4 @@
+﻿HTTP+SSE 兜底测试（禁用 WebSocket）
+A: wsActive=false, packetsSent=30, httpQueue=0, audioContext=running
+B: wsActive=false, packetsReceived=30, lastReceivedLevel=0.6252, audioContext=running, jitterTarget=0.34
+发送 30 帧 / 接收 30 帧，无丢帧。

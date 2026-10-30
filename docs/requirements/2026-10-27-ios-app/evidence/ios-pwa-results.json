@@ -1,0 +1,230 @@
+{
+  "when": "2026-10-27T09:10:49.756Z",
+  "port": 7395,
+  "results": [
+    {
+      "id": "T1.1 /play 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "T1.2 viewport-fit",
+      "ok": true,
+      "detail": "viewport-fit=cover"
+    },
+    {
+      "id": "T1.3 apple meta",
+      "ok": true,
+      "detail": "apple meta"
+    },
+    {
+      "id": "T1.4 splash links",
+      "ok": true,
+      "detail": "24"
+    },
+    {
+      "id": "T1.5 manifest type",
+      "ok": true,
+      "detail": "application/manifest+json; charset=utf-8"
+    },
+    {
+      "id": "T1.6 manifest scope",
+      "ok": true,
+      "detail": "{\"scope\":\"/play\",\"start_url\":\"/play\",\"display\":\"standalone\"}"
+    },
+    {
+      "id": "T1.7 manifest icons",
+      "ok": true,
+      "detail": "192x192/any,512x512/any,1024x1024/any,512x512/maskable"
+    },
+    {
+      "id": "T1.8 sw headers",
+      "ok": true,
+      "detail": "200 /play"
+    },
+    {
+      "id": "T1.9 sw scope + cache",
+      "ok": true,
+      "detail": "v37 + skipWaiting message"
+    },
+    {
+      "id": "T1.10 icon icon-192.png",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "T1.10 icon icon-512.png",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "T1.10 icon icon-1024.png",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "T1.10 icon icon-512-maskable.png",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "T1.10 icon apple-touch-icon.png",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "T1.11 splash 1179x2556",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "T2.1 iOS detected",
+      "ok": true,
+      "detail": "{\"ios\":true,\"safari\":true,\"standalone\":false,\"secure\":true,\"cls\":\"mobile-perf perf-lite ios ios-install-open\",\"ua\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1\",\"w\":393,\"h\":852}"
+    },
+    {
+      "id": "T2.2 ios class",
+      "ok": true,
+      "detail": "mobile-perf perf-lite ios ios-install-open"
+    },
+    {
+      "id": "T2.3 install title",
+      "ok": true,
+      "detail": "把德扑之夜装到桌面"
+    },
+    {
+      "id": "T2.4 install steps",
+      "ok": true,
+      "detail": "[\"1 点 Safari 底部的分享按钮 方形带向上箭头\",\"2 选择「添加到主屏幕」 在菜单里向下滑一点\",\"3 点右上角「添加」 回到桌面启动全屏牌桌\"]"
+    },
+    {
+      "id": "T2.5 sheet fits viewport",
+      "ok": true,
+      "detail": "{\"x\":0,\"y\":439,\"w\":393,\"h\":413}"
+    },
+    {
+      "id": "T2.6 sheet closes",
+      "ok": true,
+      "detail": "hidden"
+    },
+    {
+      "id": "T2.7 settings install entry",
+      "ok": true,
+      "detail": "{\"hidden\":false,\"display\":\"inline-block\",\"text\":\"安装到主屏幕\",\"state\":\"\"}"
+    },
+    {
+      "id": "T2.8 manual reopen",
+      "ok": true,
+      "detail": "open"
+    },
+    {
+      "id": "T2.9 never persisted",
+      "ok": true,
+      "detail": "{\"never\":\"1\",\"hidden\":true}"
+    },
+    {
+      "id": "T3.1 sw scope /play",
+      "ok": true,
+      "detail": "{\"scope\":\"http://127.0.0.1:7395/play\",\"active\":true,\"controller\":true,\"cached\":true,\"size\":1349041}"
+    },
+    {
+      "id": "T3.2 sw controls page",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "id": "T3.3 shell cached",
+      "ok": true,
+      "detail": "1349041"
+    },
+    {
+      "id": "T3.4 update banner",
+      "ok": true,
+      "detail": "visible"
+    },
+    {
+      "id": "T3.5 offline boot from cache",
+      "ok": true,
+      "detail": "{\"title\":\"德扑之夜 · 第一视角德州扑克\",\"poker\":true,\"boot\":false,\"lobby\":true,\"body\":\"建议横屏游玩 · 横屏牌桌信息更完整，体验更佳\\n德\\n禁止赌博 · 本平台仅供娱乐，不提供赌博场所或盈利服务\\nONLINE\\n0\\nPRIVATE TABLE · 第\"}"
+    },
+    {
+      "id": "T3.6 install prompt stays dismissed",
+      "ok": true,
+      "detail": "no auto prompt after reload"
+    },
+    {
+      "id": "T4.1 chrome iab detected",
+      "ok": true,
+      "detail": "{\"safari\":false,\"inApp\":\"其他浏览器\",\"title\":\"请用 Safari 打开\",\"steps\":[\"1 点右上角 ··· 打开浏览器菜单\",\"2 选择「在 Safari 中打开」 如果没有，复制链接到 Safari\",\"3 再用 Safari 的分享按钮安装 分享 → 添加到主屏幕\"],\"action\":\"复制链接\"}"
+    },
+    {
+      "id": "T4.2 asks for Safari",
+      "ok": true,
+      "detail": "请用 Safari 打开"
+    },
+    {
+      "id": "T4.3 copy action",
+      "ok": true,
+      "detail": "复制链接"
+    },
+    {
+      "id": "T5.1 standalone detected",
+      "ok": true,
+      "detail": "{\"standalone\":true,\"cls\":\"mobile-perf perf-lite ios ios-standalone\",\"sheet\":false,\"entryHidden\":true,\"state\":\"已从主屏幕启动 · 全屏 App 模式。\",\"w\":852,\"h\":393}"
+    },
+    {
+      "id": "T5.2 no install sheet",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "id": "T5.3 entry hidden",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "id": "T5.4 state copy",
+      "ok": true,
+      "detail": "已从主屏幕启动 · 全屏 App 模式。"
+    },
+    {
+      "id": "T6.1 native detected",
+      "ok": true,
+      "detail": "{\"native\":true,\"cls\":\"mobile-perf perf-lite ios ios-native ios-standalone\",\"sheet\":false,\"entryHidden\":true,\"state\":\"当前为 iOS 原生 App 模式。\"}"
+    },
+    {
+      "id": "T6.2 no install sheet",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "id": "T6.3 native state copy",
+      "ok": true,
+      "detail": "当前为 iOS 原生 App 模式。"
+    },
+    {
+      "id": "T7.1 insecure detected",
+      "ok": true,
+      "detail": "{\"secure\":false,\"pwaSecure\":false,\"swReg\":false,\"note\":\"当前是 HTTP 地址：可以安装并游玩；离线缓存与麦克风语音需要 HTTPS。\",\"title\":\"把德扑之夜装到桌面\"}"
+    },
+    {
+      "id": "T7.2 http warning",
+      "ok": true,
+      "detail": "当前是 HTTP 地址：可以安装并游玩；离线缓存与麦克风语音需要 HTTPS。"
+    },
+    {
+      "id": "T8.1 no page errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "screenshots": [
+    "ios-pwa-sheet.png",
+    "ios-pwa-settings.png",
+    "ios-pwa-update.png",
+    "ios-pwa-offline.png",
+    "ios-pwa-chrome.png",
+    "ios-pwa-standalone.png",
+    "ios-pwa-http.png"
+  ]
+}

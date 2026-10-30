@@ -1,0 +1,18 @@
+{
+  "log": [
+    {
+      "step": "loaded",
+      "at": 4263
+    },
+    {
+      "step": "page-reveal",
+      "at": 4267
+    },
+    {
+      "step": "play",
+      "rate": 1,
+      "at": 4267
+    }
+  ],
+  "pageErrors": []
+}

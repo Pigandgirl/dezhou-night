@@ -1,0 +1,10 @@
+﻿逐人禁音/只看一人测试
+before=true
+mute=false
+solo=true
+unsolo=false
+unmute=true
+globalMute=false
+restore=true
+soloPid=null
+mutedPids=0

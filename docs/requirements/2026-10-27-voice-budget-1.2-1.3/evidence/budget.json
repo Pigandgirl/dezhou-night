@@ -1,0 +1,59 @@
+{
+  "version": "1.1.12",
+  "mode": "call+number",
+  "pageErrors": [],
+  "result": {
+    "rows": [
+      {
+        "kind": "name",
+        "rate": 1.713,
+        "start": 4400,
+        "end": 4759
+      },
+      {
+        "kind": "clip",
+        "rate": 1.713,
+        "start": 4759,
+        "end": 5108
+      },
+      {
+        "kind": "clip",
+        "rate": 1.713,
+        "start": 5108,
+        "end": 5359
+      },
+      {
+        "kind": "clip",
+        "rate": 1.713,
+        "start": 5359,
+        "end": 5656
+      }
+    ],
+    "total": 1.256,
+    "busy": false,
+    "queue": 0
+  },
+  "noNumber": {
+    "mode": "fold without number",
+    "pageErrors": [],
+    "result": {
+      "rows": [
+        {
+          "kind": "name",
+          "rate": 1.084,
+          "start": 4402,
+          "end": 4985
+        },
+        {
+          "kind": "clip",
+          "rate": 1.084,
+          "start": 4985,
+          "end": 5463
+        }
+      ],
+      "total": 1.061,
+      "busy": false,
+      "queue": 0
+    }
+  }
+}

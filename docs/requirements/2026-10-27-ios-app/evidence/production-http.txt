@@ -1,0 +1,15 @@
+﻿# production probe 2026-10-27 17:02:16 +08:00
+GET /play => 200 bytes=1404885
+GET /api/health => 200
+GET /api/health body: {"ok":true,"service":"dezhounight","rooms":4,"users":67,"connections":0,"games":0,"features":{"matchEnabled":true,"lanEnabled":true,"onlineEnabled":true,"chipRefillMinutes":60,"chipGrant":100},"uptime":60618,"time":"2026-10-27T09:02:17.222Z"}
+production version markers: 1.1.10
+GET /play/sw.js headers:
+HTTP/1.1 200 OK
+Content-Type: application/javascript; charset=utf-8
+Cache-Control: no-cache, must-revalidate
+Service-Worker-Allowed present: False
+TCP 443: False
+TCP 80: True
+DEPLOY_PASS set: False
+SSH key deploy attempt: ubuntu@192.144.159.220: Permission denied (publickey,password).
+production PWA meta: apple-mobile-web-app-capable=True manifest.webmanifest=True apple-touch-icon=True viewport-fit=cover=True

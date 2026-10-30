@@ -1,0 +1,4 @@
+﻿偶发卡顿根因（旧版）
+1. HTTP 上传只有一个 sendInFlight；新帧到来时 pendingPcm 被覆盖，导致大量帧被丢弃。
+2. 播放缓冲只提前 60ms；网络 RTT 抖动一下就会 underrun。
+3. underrun 后直接把 nextPlayAt 重置为 now+60ms，再次快速 underrun，形成连续断续。

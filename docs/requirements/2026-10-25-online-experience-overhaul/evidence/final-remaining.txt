@@ -1,0 +1,9 @@
+﻿收尾项测试（1.0.102）
+- 全弃牌单元：buildSettlement(showdown=false) 行 JSON 只有 name/won，无 hole/bestCards/handName/score；showdown=true 时 hole 长度1。
+- 低动态：applyLowMotion(true) 后 scene.lowMotion=true，actorLookOffset=[0,0,0]，html.low-motion=true。
+- 中英字幕：feedAction('测试玩家','下注',12) 生成 .feed-en = BET。
+- 观战麦克风：setSpectatorMode(true) 时 voiceChat.disable() 被调用，badge 显示，card-viewer 隐藏。
+- pageerror：无。
+- Opus：未完成，当前 WebView/测试环境无可用 AudioEncoder，且 opusscript 需要额外 wasm/worker 资产，本轮未安全接入。
+- 4麦克风真实10分钟：无设备/麦克风，未执行。
+- 真机后台3/10/60秒：无 adb/真机，未执行。

@@ -1,0 +1,34 @@
+{
+  "operation": "plugin_manager.install_bundle",
+  "target": "D:\\software\\project\\dezhou\\.dsh-plugins\\full-mode",
+  "attempts": [
+    {
+      "attempt": 1,
+      "stage": "install",
+      "application": "failed",
+      "packageResult": {
+        "exitCode": 1,
+        "kind": "unknown",
+        "output": "'pnpm' 不是内部或外部命令，也不是可运行的程序或批处理文件。",
+        "logPath": "C:\\Users\\17462\\.dsh\\profiles\\web\\.plugin-manager\\logs\\operation-oT11qc\\pnpm.log"
+      },
+      "error": { "code": "operation-error", "diagnostic": "pnpm-missing" }
+    },
+    {
+      "attempt": 2,
+      "prerequisite": "npm install -g pnpm@10 -> pnpm 10.34.8",
+      "stage": "enable",
+      "target": "@local/dsh-full-mode",
+      "changed": true,
+      "application": "applied",
+      "bundle": "@local/dsh-full-mode",
+      "version": "1.0.0",
+      "warnings": [],
+      "packageResult": {
+        "exitCode": 0,
+        "output": "dependencies:\n+ @local/dsh-full-mode link:D:/software/project/dezhou/.dsh-plugins/full-mode\n\nAlready up to date\nDone in 339ms using pnpm v10.34.8",
+        "logPath": "C:\\Users\\17462\\.dsh\\profiles\\web\\.plugin-manager\\logs\\operation-35oDYf\\pnpm.log"
+      }
+    }
+  ]
+}

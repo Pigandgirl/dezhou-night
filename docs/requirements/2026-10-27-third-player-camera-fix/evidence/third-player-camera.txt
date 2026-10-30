@@ -1,0 +1,7 @@
+﻿问题复现与修复数据（本地测试）
+- 2人在局：state.seats=2，scene.rigs=1，模型正常
+- 第三人加入当前手：waiting=true，state.seats仍2，现有场景未被重建
+- 下一手3人：state.seats=3，scene.rigs=2，两个对手可见
+- 旧默认镜头：userZoom=1，第三人视角只看到1个对手（另一个在镜头背后）
+- 新默认镜头：3人桌userZoom=1.55，两个对手都在视野内
+- pageerror=0

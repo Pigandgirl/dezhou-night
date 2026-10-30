@@ -1,0 +1,202 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DZ_APP_URL: ${{ vars.DZ_APP_URL || 'http://192.144.159.220:8080/play' }}
+
+jobs:
+  build:
+    name: Build unsigned IPA + simulator screenshot
+    runs-on: macos-14
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: |
+          xcodegen generate
+          xcodebuild -list -project DezhouNight.xcodeproj
+
+      - name: Build unsigned device archive
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project DezhouNight.xcodeproj \
+            -scheme DezhouNight \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath ../build/DezhouNight.xcarchive \
+            archive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DZ_APP_URL="$DZ_APP_URL" \
+            -quiet
+
+      - name: Package unsigned IPA
+        run: |
+          set -euo pipefail
+          mkdir -p build/Payload
+          cp -R build/DezhouNight.xcarchive/Products/Applications/DezhouNight.app build/Payload/
+          cd build
+          zip -qry DezhouNight-unsigned.ipa Payload
+          shasum -a 256 DezhouNight-unsigned.ipa | tee DezhouNight-unsigned.ipa.sha256
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' Payload/DezhouNight.app/Info.plist
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleDisplayName' Payload/DezhouNight.app/Info.plist
+          /usr/libexec/PlistBuddy -c 'Print :DZAppURL' Payload/DezhouNight.app/Info.plist
+          unzip -l DezhouNight-unsigned.ipa | head -25
+
+      - name: Build for iPhone simulator
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project ios/DezhouNight.xcodeproj \
+            -scheme DezhouNight \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -derivedDataPath build/sim \
+            build \
+            CODE_SIGNING_ALLOWED=NO \
+            DZ_APP_URL="$DZ_APP_URL" \
+            -quiet
+
+      - name: Launch on iPhone simulator and screenshot
+        run: |
+          set -euo pipefail
+          xcrun simctl list devices available
+          xcrun simctl boot "iPhone 15" || true
+          xcrun simctl bootstatus booted -b
+          xcrun simctl status_bar booted override \
+            --time "9:41" \
+            --dataNetwork wifi --wifiMode active --wifiBars 3 \
+            --cellularMode active --cellularBars 4 \
+            --batteryState charged --batteryLevel 100
+          xcrun simctl install booted build/sim/Build/Products/Debug-iphonesimulator/DezhouNight.app
+          xcrun simctl launch booted com.dezhounight.poker
+          sleep 25
+          mkdir -p build/screenshots
+          xcrun simctl io booted screenshot --type=png build/screenshots/ios-simulator.png
+          xcrun simctl terminate booted com.dezhounight.poker || true
+          sips -g pixelWidth -g pixelHeight build/screenshots/ios-simulator.png
+
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: DezhouNight-unsigned-ipa
+          path: |
+            build/DezhouNight-unsigned.ipa
+            build/DezhouNight-unsigned.ipa.sha256
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload simulator screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: DezhouNight-ios-simulator
+          path: build/screenshots/ios-simulator.png
+          if-no-files-found: error
+          retention-days: 14
+
+  signed:
+    name: Optional signed IPA (needs Apple Developer secrets)
+    if: ${{ vars.IOS_SIGNING == 'true' }}
+    needs: build
+    runs-on: macos-14
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate
+
+      - name: Import certificate and provisioning profile
+        env:
+          IOS_CERT_P12_BASE64: ${{ secrets.IOS_CERT_P12_BASE64 }}
+          IOS_CERT_PASSWORD: ${{ secrets.IOS_CERT_PASSWORD }}
+          IOS_PROFILE_BASE64: ${{ secrets.IOS_PROFILE_BASE64 }}
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          echo "$IOS_CERT_P12_BASE64" | base64 --decode > build/cert.p12
+          security create-keychain -p actions build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p actions build.keychain
+          security import build/cert.p12 -k build.keychain -P "$IOS_CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k actions build.keychain
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+          echo "$IOS_PROFILE_BASE64" | base64 --decode > "$HOME/Library/MobileDevice/Provisioning Profiles/profile.mobileprovision"
+
+      - name: Archive and export signed IPA
+        env:
+          IOS_TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
+          IOS_PROFILE_SPECIFIER: ${{ secrets.IOS_PROFILE_SPECIFIER }}
+          IOS_BUNDLE_ID: ${{ vars.IOS_BUNDLE_ID || 'com.dezhounight.poker' }}
+          IOS_EXPORT_METHOD: ${{ vars.IOS_EXPORT_METHOD || 'development' }}
+        run: |
+          set -euo pipefail
+          cd ios
+          xcodebuild \
+            -project DezhouNight.xcodeproj \
+            -scheme DezhouNight \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath ../build/DezhouNight.xcarchive \
+            archive \
+            DEVELOPMENT_TEAM="$IOS_TEAM_ID" \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER="$IOS_PROFILE_SPECIFIER" \
+            DZ_APP_URL="$DZ_APP_URL" \
+            -quiet
+          cd ..
+          cat > build/ExportOptions.plist <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>$IOS_EXPORT_METHOD</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>teamID</key><string>$IOS_TEAM_ID</string>
+            <key>provisioningProfiles</key>
+            <dict><key>$IOS_BUNDLE_ID</key><string>$IOS_PROFILE_SPECIFIER</string></dict>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath build/DezhouNight.xcarchive \
+            -exportPath build/signed \
+            -exportOptionsPlist build/ExportOptions.plist \
+            -quiet
+          ls -lh build/signed
+
+      - name: Upload signed IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: DezhouNight-signed-ipa
+          path: build/signed/*.ipa
+          if-no-files-found: error
+          retention-days: 14

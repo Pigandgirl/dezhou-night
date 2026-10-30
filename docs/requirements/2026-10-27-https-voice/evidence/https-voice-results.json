@@ -1,0 +1,49 @@
+{
+  "when": "2026-10-27T11:59:51.941Z",
+  "base": "https://56f32046dd5f12.lhr.life",
+  "results": [
+    {
+      "id": "H1 page loaded",
+      "ok": true,
+      "detail": "{\"title\":\"德扑之夜 · 第一视角德州扑克\",\"url\":\"https://56f32046dd5f12.lhr.life/play\",\"secure\":true,\"protocol\":\"https:\",\"mediaDevices\":true,\"poker\":true,\"body\":\"德\\n德扑之夜\\nPRIVATE TABLE · 第一视角\\n德\\n禁止赌博 · 本平台仅供娱乐，不提供赌博场所或盈利服务\\nONLINE\\n0\\n德扑之夜\\n?\\n游客\\n点击登录\\n›\\n◆\\n—\\n筹码\\nGAME MODES\\n选择牌局\\n01\\n♠\\n在线匹配\\n登录后\",\"loaderStage\":\"write\",\"loaderError\":\"\",\"bar\":\"\",\"err\":\"\",\"resources\":[{\"name\":\"meta\",\"size\":355,\"duration\":752},{\"name\":\"0\",\"size\":36574,\"duration\":5575},{\"name\":\"1\",\"size\":26748,\"duration\":4768},{\"name\":\"2\",\"size\":35951,\"duration\":6306},{\"name\":\"3\",\"size\":37400,\"duration\":7968},{\"name\":\"4\",\"size\":40129,\"duration\":5817},{\"name\":\"5\",\"size\":36311,\"duration\":5873},{\"name\":\"7\",\"size\":11993,\"duration\":3363},{\"name\":\"6\",\"size\":29068,\"duration\":4844},{\"name\":\"8\",\"size\":27701,\"duration\":6655},{\"name\":\"9\",\"size\":28817,\"duration\":3251},{\"name\":\"10\",\"size\":26812,\"duration\":3654}]}"
+    },
+    {
+      "id": "H2 HTTPS secure context",
+      "ok": true,
+      "detail": "{\"title\":\"德扑之夜 · 第一视角德州扑克\",\"url\":\"https://56f32046dd5f12.lhr.life/play\",\"secure\":true,\"protocol\":\"https:\",\"mediaDevices\":true,\"poker\":true,\"body\":\"德\\n德扑之夜\\nPRIVATE TABLE · 第一视角\\n德\\n禁止赌博 · 本平台仅供娱乐，不提供赌博场所或盈利服务\\nONLINE\\n0\\n德扑之夜\\n?\\n游客\\n点击登录\\n›\\n◆\\n—\\n筹码\\nGAME MODES\\n选择牌局\\n01\\n♠\\n在线匹配\\n登录后\",\"loaderStage\":\"write\",\"loaderError\":\"\",\"bar\":\"\",\"err\":\"\",\"resources\":[{\"name\":\"meta\",\"size\":355,\"duration\":752},{\"name\":\"0\",\"size\":36574,\"duration\":5575},{\"name\":\"1\",\"size\":26748,\"duration\":4768},{\"name\":\"2\",\"size\":35951,\"duration\":6306},{\"name\":\"3\",\"size\":37400,\"duration\":7968},{\"name\":\"4\",\"size\":40129,\"duration\":5817},{\"name\":\"5\",\"size\":36311,\"duration\":5873},{\"name\":\"7\",\"size\":11993,\"duration\":3363},{\"name\":\"6\",\"size\":29068,\"duration\":4844},{\"name\":\"8\",\"size\":27701,\"duration\":6655},{\"name\":\"9\",\"size\":28817,\"duration\":3251},{\"name\":\"10\",\"size\":26812,\"duration\":3654}]}"
+    },
+    {
+      "id": "H3 getUserMedia present",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "id": "H4 getUserMedia audio track",
+      "ok": true,
+      "detail": "{\"ok\":true,\"tracks\":1,\"label\":\"Fake Default Audio Input\",\"state\":\"live\",\"settings\":{\"autoGainControl\":true,\"channelCount\":1,\"deviceId\":\"default\",\"echoCancellation\":true,\"groupId\":\"0727acddb14017fe2dee5e1720cfa6e62e588108080cc75148779e4870960efd\",\"latency\":0.01,\"noiseSuppression\":true,\"sampleRate\":48000,\"sampleSize\":16,\"voiceIsolation\":false}}"
+    },
+    {
+      "id": "H5 service worker (informational)",
+      "ok": false,
+      "detail": "{\"error\":\"sw timeout\"}"
+    },
+    {
+      "id": "H6 manifest reachable",
+      "ok": true,
+      "detail": "{\"ok\":true,\"href\":\"https://56f32046dd5f12.lhr.life/play/manifest.webmanifest\",\"scope\":\"/play\",\"start\":\"/play\",\"display\":\"standalone\"}"
+    },
+    {
+      "id": "H8 cached second load",
+      "ok": true,
+      "detail": "1991ms"
+    },
+    {
+      "id": "H7 HTTP is not secure",
+      "ok": true,
+      "detail": "{\"secure\":false,\"protocol\":\"http:\",\"mediaDevices\":false,\"poker\":true}"
+    }
+  ],
+  "screenshots": [
+    "https-tunnel-secure.png"
+  ]
+}

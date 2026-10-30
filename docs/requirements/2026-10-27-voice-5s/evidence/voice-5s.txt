@@ -1,0 +1,5 @@
+﻿客户端 src/voice.js：
+  自动闭麦 5000ms
+  提示：单次最长5秒
+服务端 server/server.js：
+  voiceClaim 5秒窗口

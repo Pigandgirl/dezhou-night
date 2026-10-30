@@ -1,0 +1,15 @@
+{
+  "query": "cordis_inspect_query(client, Slots, listSubTree, root=conversation.composer.dock)",
+  "slot": {
+    "name": "conversation.composer.dock",
+    "kind": "list",
+    "scope": "session",
+    "purpose": "Ambient entries below the composer card.",
+    "occupants": [
+      { "registrant": "Kb", "id": "activity", "order": 0, "active": true },
+      { "registrant": "Kb", "id": "usage", "order": 1, "active": true },
+      { "registrant": "Kb", "id": "full-mode-chip", "order": 20, "active": true }
+    ]
+  },
+  "conclusion": "客户端半边已在运行中的页面注册 full-mode-chip（active=true），位于输入框下方的 composer dock 槽位，order=20。"
+}

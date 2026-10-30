@@ -1,0 +1,24 @@
+[Unit]
+Description=Dezhou Night online room and update service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/dezhounight
+ExecStart=/usr/bin/node /opt/dezhounight/server.js
+Restart=always
+RestartSec=3
+Environment=PORT=8080
+Environment=NODE_ENV=production
+Environment=TRUST_PROXY=1
+Environment=MAX_ROOMS=600
+Environment=MAX_SSE=2000
+EnvironmentFile=-/opt/dezhounight/admin.env
+# SSE: one file descriptor per connected player/spectator.
+LimitNOFILE=65535
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

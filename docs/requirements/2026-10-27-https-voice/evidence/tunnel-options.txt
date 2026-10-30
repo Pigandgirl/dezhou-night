@@ -1,0 +1,7 @@
+﻿# HTTPS tunnel options tried (2026-10-27)
+Cloudflare quick tunnel: tunnel connects with --protocol http2; /play is 302 to dnspod.qcloud.com/webblock in this network; not usable.
+Serveo: browser sees 'Serveo - Warning'; large HTML responses truncate; not usable.
+Pinggy: browser sees 'Caution - you are about to visit...' warning; 60 minute free tunnel; not usable.
+localhost.run: no warning page; free tunnel truncates a single 1.35MB HTML around 200-300KB.
+Workaround: localhost.run + local chunk loader (128KB gzip chunks) + localStorage cache; WSS relay upgrade works.
+Current working URL: see tunnel-url.txt.

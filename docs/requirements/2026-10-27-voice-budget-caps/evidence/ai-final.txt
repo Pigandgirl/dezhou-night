@@ -1,0 +1,8 @@
+﻿AI single game final speech log (1.1.12 / 119)
+name 阿凯 rate=1.273 start=7405 end=7879
+clip rate=1.273 start=7879 end=8297
+clip rate=1.273 start=8297 end=8665
+name 牛头 rate=1.085 start=8665 end=9267
+clip rate=1.085 start=9267 end=9776
+name->action gap=0ms
+pageerror=0

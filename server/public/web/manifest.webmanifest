@@ -1,0 +1,43 @@
+{
+  "id": "/play",
+  "name": "德扑之夜 · 第一视角德州扑克",
+  "short_name": "德扑之夜",
+  "description": "第一视角 3D 德扑，在线匹配、好友房、实时语音。加入主屏幕后全屏开局。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "start_url": "/play",
+  "scope": "/play",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen", "minimal-ui"],
+  "orientation": "landscape",
+  "background_color": "#08090b",
+  "theme_color": "#08090b",
+  "categories": ["games", "entertainment"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/play/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/play/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/play/icons/icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/play/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

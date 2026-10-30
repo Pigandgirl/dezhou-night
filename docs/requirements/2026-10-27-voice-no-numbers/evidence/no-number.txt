@@ -1,0 +1,6 @@
+﻿单机 AI 播报（1.1.15 / 122）
+action buffers = 1（只含操作，不含数字）
+all rates = 1
+名称结束 → 操作开始 = 0ms
+pageerror = 0
+结算文本不包含底池数字

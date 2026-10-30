@@ -1,0 +1,13 @@
+﻿游戏内后台最终验证
+window.open 调用: 0
+adminConsoleScreen 打开: true
+概览统计: 注册用户/在线玩家/进行中游戏/服务器连接/服务器内存/累计对局
+房间: 4
+用户管理: 2 行
+权限开关: 3 个 checkbox
+关闭: hidden=true
+5秒轮询: before=1, 5.2秒后 after=2
+手机 844x390: 全屏 844x390，侧栏 flex-direction=row
+页面错误: []
+APK: 1.0.95 (versionCode 96), 2,020,101 bytes
+SHA256: 5DA396A67101752DD666AFCE8A97142BB67A99965D147D9A8C14BFEF8A0476DF

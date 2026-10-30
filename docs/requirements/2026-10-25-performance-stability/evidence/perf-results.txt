@@ -1,0 +1,38 @@
+﻿优化后生产指标
+GET /play Accept-Encoding: br
+HTTP 200
+Content-Encoding: br
+Content-Length: 248123
+Cache-Control: no-cache, must-revalidate
+ETag: W/"ffb6c-1a171ca7c40-br"
+Vary: Accept-Encoding
+
+条件请求 If-None-Match = ETag
+HTTP 304，0 字节
+
+GET /voice/female_mature/check.mp3
+HTTP 200
+Content-Type: audio/mpeg
+Content-Length: 7632
+
+浏览器本地指标（优化构建）
+DOMContentLoaded: 39.3 ms
+navigation transfer: 248453 bytes
+decoded HTML: 1047348 bytes
+语音包: 24 个文件全部 200，AudioBuffer 24 个
+
+优化前构建
+HTML: 3203884 bytes
+gzip wire: 1190468 bytes
+br wire: 1154446 bytes
+
+优化后构建
+HTML: 1047321 bytes
+gzip wire: 269864 bytes
+br wire: 248153 bytes
+
+APK
+优化前 1,283,989 bytes
+优化后 2,011,909 bytes
+assets/voice_*.mp3 = 192 个，扁平文件，无 Windows 反斜杠目录
+assets/index.html = 1,047,404 bytes

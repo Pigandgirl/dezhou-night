@@ -1,0 +1,10 @@
+﻿筹码/生涯/称号测试证据
+- 好友房：A弃牌，B获胜；B大厅筹码 100 -> 105；B生涯 hands=1,wins=1,friendWins=1,foldWins=1；解锁 first_win/first_friend_win/fold_win；流水 +5 friend_win。
+- 单机积分：每15秒心跳一次，60秒时 earnedPoints=2，points=2，daily.singlePoints=2。
+- 大厅积分：每15秒心跳一次，60秒时 earnedPoints=1，points=1，daily.lobbyPoints=1。
+- 生涯页：5个tab，30个称号卡，标题、统计、牌型、好友、流水均渲染。
+- 称号装备：点击 streak_2 后 activeTitle=streak_2；个人资料显示“小试锋芒”。
+- 解锁动效：showUnlock 显示“大杀四方”，玩家名、quote、继续按钮正常。
+- 手机844x390：生涯页全屏，网格两列，无横向溢出。
+- pageerror：无。
+- 未验证：10分钟提示、打平奖励、每日上限达到后的真实结算、真机音效/语音。

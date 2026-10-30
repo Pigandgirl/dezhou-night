@@ -1,0 +1,5 @@
+﻿结算优先级测试（本地浏览器桩）
+- 先播报：阿凯 raise
+- 150ms 后调用 speakSettlementNow('恭喜小明赢得底池 100')
+- 结果：阿凯名称开始；随后结算文本开始；raise 操作未播
+- queue=0, busy=false

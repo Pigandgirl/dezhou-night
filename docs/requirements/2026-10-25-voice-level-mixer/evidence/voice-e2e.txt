@@ -1,0 +1,4 @@
+﻿语音端到端结果
+接收端 enabled=false, listening=true, packetsReceived=25, lastReceivedLevel=0.954, audioContext=running
+发送端 enabled=true, packetsSent=26, lastLevel=0.0307
+结论：发送方麦克风采集、HTTP 中继、SSE 广播、接收方在未开麦状态下播放全部通过。

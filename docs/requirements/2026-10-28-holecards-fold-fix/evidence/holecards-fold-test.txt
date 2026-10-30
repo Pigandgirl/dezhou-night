@@ -1,0 +1,22 @@
+﻿牌数/弃牌实测（1.1.23 / 130）
+发牌前：
+3人 seats=3
+holeSeats=3
+holeCards=6（3副底牌，不是4副）
+
+弃牌后：
+folded=[0]
+holeSeats=3
+holeCards=4
+fHole=[[0,0],[1,2],[4,2]]
+弃牌玩家0号桌面底牌=0，剩余两玩家各2张。
+
+1–8人：
+n=2 holeCards=4
+n=3 holeCards=6
+n=4 holeCards=8
+n=5 holeCards=10
+n=6 holeCards=12
+n=7 holeCards=14
+n=8 holeCards=16
+pageerror=0

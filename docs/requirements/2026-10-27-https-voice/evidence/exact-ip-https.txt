@@ -1,0 +1,5 @@
+﻿# exact user-supplied URL probe 2026-10-27 20:00:12 +08:00
+URL: https://192.144.159.220:8080/play
+code=000 bytes=0 error=schannel: next InitializeSecurityContext failed: SEC_E_INVALID_TOKEN (0x80090308) - �������ṩ�ı�־��Ч
+curl: (35) schannel: next InitializeSecurityContext failed: SEC_E_INVALID_TOKEN (0x80090308) - �������ṩ�ı�־��Ч
+HTTP plain on 8080: 200

@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#08090b" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="德扑之夜" />
+    <title>德扑之夜 · 第一视角德州扑克</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0e11'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23d8b876'%3E%E5%BE%B7%3C/text%3E%3C/svg%3E"
+    />
+    <meta name="application-name" content="德扑之夜" />
+    <link rel="manifest" href="/play/manifest.webmanifest" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/play/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2796x1290.png" media="(device-width: 932px) and (device-height: 430px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2556x1179.png" media="(device-width: 852px) and (device-height: 393px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2532x1170.png" media="(device-width: 844px) and (device-height: 390px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2778x1284.png" media="(device-width: 926px) and (device-height: 428px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1792x828.png" media="(device-width: 896px) and (device-height: 414px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2436x1125.png" media="(device-width: 812px) and (device-height: 375px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1334x750.png" media="(device-width: 667px) and (device-height: 375px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1136x640.png" media="(device-width: 568px) and (device-height: 320px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2732x2048.png" media="(device-width: 1366px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1640x2360.png" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2360x1640.png" media="(device-width: 1180px) and (device-height: 820px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1668x2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2388x1668.png" media="(device-width: 1194px) and (device-height: 834px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-1488x2266.png" media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image" href="/play/icons/splash-2266x1488.png" media="(device-width: 1133px) and (device-height: 744px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+  </head>
+  <body>
+    <div id="boot">
+      <div class="boot-inner">
+        <div class="boot-mark">德</div>
+        <div class="boot-title">德扑<span>之夜</span></div>
+        <div class="boot-sub">PRIVATE TABLE · 第一视角</div>
+        <div class="boot-bar"><i></i></div>
+      </div>
+    </div>
+    <div id="rotateHint" class="rotate-hint">建议横屏游玩 · 横屏牌桌信息更完整，体验更佳</div>
+    <div id="app">
+      <canvas id="scene"></canvas>
+      <div class="screen-fx vignette"></div>
+      <div class="screen-fx grain"></div>
+
+      <div id="hud" class="hidden">
+        <div id="storyFilter" class="story-filter hidden" aria-hidden="true"></div>
+        <div id="cinemaBars" class="cinema-bars hidden" aria-hidden="true"><i></i><i></i></div>
+        <div id="storyChallenge" class="story-challenge hidden">
+          <span id="storyChallengeKicker">STORY MODE</span>
+          <b id="storyChallengeTitle"></b>
+          <em id="storyChallengeObjective"></em>
+        </div>
+        <div id="spectatorBadge" class="spectator-badge hidden"><b>观战中</b><span>拖动旋转 · 滚轮缩放 · 没有操作权限</span><button type="button" id="btnSpectatorReset">回到主视角</button></div>
+        <div id="sceneBadge" class="scene-badge hidden"><em>SCENE</em><b>私人牌室</b></div>
+        <header class="hud-top">
+          <div class="brandline">
+            <span class="brandline-mark">德</span>
+            <span class="brandline-name">德扑之夜</span>
+            <span class="brandline-sub">第一视角 · 无限注</span>
+          </div>
+          <div class="handline">
+            <span id="handNo">第 1 手</span>
+            <i class="dot"></i>
+            <span id="blindInfo">盲注 25 / 50</span>
+          </div>
+          <div class="hud-actions">
+            <button class="voice-toggle hidden" id="btnVoice" type="button" aria-pressed="false" title="语音" aria-label="语音">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7"/></svg>
+              <i class="voice-dot"></i>
+            </button>
+            <button class="iconbtn" id="btnSettings" title="设置" aria-label="设置">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.08A1.7 1.7 0 0 0 8.9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.08A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.08A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v.08A1.7 1.7 0 0 0 21 10h.08a2 2 0 1 1 0 4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="potbox">
+          <span class="potbox-label">底池</span>
+          <strong id="potValue">0</strong>
+        </div>
+
+        <div id="boardRail" class="board-rail hidden">
+          <div class="rail-head"><span>公共牌</span><em id="boardStreet">翻牌前</em></div>
+          <div class="rail-cards" id="boardRailCards"></div>
+        </div>
+
+        <div id="boardZoom" class="board-zoom hidden" role="dialog" aria-modal="true" aria-label="放大公共牌">
+          <div class="board-zoom-panel">
+            <div class="board-zoom-head">
+              <div><b>公共牌</b><em id="boardZoomStreet">翻牌圈</em></div>
+              <button id="btnBoardZoomClose" type="button" aria-label="关闭公共牌放大">×</button>
+            </div>
+            <div id="boardZoomCards" class="board-zoom-cards"></div>
+            <div class="board-zoom-foot"><span>点击任意公共牌放大 · 3 秒后自动收起</span><i></i></div>
+          </div>
+        </div>
+
+        <div id="cardViewer" class="card-viewer">
+          <div class="viewer-head">
+            <span id="viewerTitle">你的底牌</span>
+            <div class="viewer-tools">
+              <button id="btnCardToggle" class="viewer-toggle" type="button">切换</button>
+              <button id="btnCardCollapse" class="viewer-collapse" type="button">收起</button>
+            </div>
+          </div>
+          <div class="viewer-cards" id="viewerCards"></div>
+          <em class="viewer-hint">左右滑动切换</em>
+        </div>
+        <button id="btnCardExpand" class="viewer-expand hidden" type="button">底牌</button>
+
+        <div id="feed" class="feed"></div>
+        <button id="btnFeedCollapse" class="feed-collapse" type="button" aria-label="收起牌桌动态">收起动态</button>
+        <button id="btnFeedExpand" class="feed-expand hidden" type="button" aria-label="展开牌桌动态">动态</button>
+        <div id="turnTag" class="turntag hidden">轮到你行动</div>
+
+        <div class="hero-hud">
+          <div class="hero-line">
+            <span class="hero-dot"></span>
+            <span class="hero-label">你的筹码</span>
+            <strong id="heroStack">2,000</strong>
+          </div>
+          <div id="heroHand" class="hero-hand"></div>
+        </div>
+
+        <div id="actionbar" class="actionbar hidden">
+          <div id="actionTimer" class="action-timer hidden">
+            <i></i>
+            <span id="actionTimerText">15s</span>
+          </div>
+          <div class="actionbar-top">
+            <div class="amt-display">
+              <button id="btnRaiseMinus" class="amt-step" type="button" aria-label="减少加注">−</button>
+              <span class="amt-label" id="raiseLabel">加注到</span>
+              <b id="raiseValue">200</b>
+              <span class="amt-unit">筹码</span>
+              <button id="btnRaisePlus" class="amt-step" type="button" aria-label="增加加注">+</button>
+            </div>
+            <div class="presets">
+              <button data-frac="0.5" type="button">½ 池</button>
+              <button data-frac="0.75" type="button">¾ 池</button>
+              <button data-frac="1" type="button">满池</button>
+              <button data-allin="1" type="button">全下</button>
+            </div>
+          </div>
+          <input type="range" id="raiseRange" min="0" max="1000" step="10" value="200" />
+          <div class="actionbar-buttons">
+            <button id="btnFold" class="btn btn-fold" type="button"><span>弃牌</span><small>F</small></button>
+            <button id="btnCall" class="btn btn-call" type="button"><span>过牌</span><small>C</small></button>
+            <button id="btnRaise" class="btn btn-primary" type="button"><span>加注</span><small>R</small></button>
+          </div>
+        </div>
+
+        <div id="foldConfirm" class="modal-backdrop hidden">
+          <div class="modal modal-small fold-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="foldConfirmTitle">
+            <div class="modal-eyebrow">确认操作</div>
+            <h2 id="foldConfirmTitle">确定要弃牌吗？</h2>
+            <p class="modal-copy">弃牌后本手将不能再跟注、加注或看牌。</p>
+            <div class="modal-footer">
+              <button class="btn btn-ghost" id="btnFoldCancel" type="button">继续这手</button>
+              <button class="btn btn-fold" id="btnFoldConfirm" type="button">确认弃牌</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="banner" class="banner"></div>
+        <div id="singleSettle" class="single-settle hidden">
+          <div class="single-settle-head">
+            <div class="single-settle-title">
+              <b id="singleSettleTitle">本手结算</b>
+              <em>按牌力从大到小 · 底牌与成牌全部公开</em>
+            </div>
+            <div class="single-settle-tools">
+              <span id="singleSettleTimer">15s</span>
+              <button id="btnSettleNext" class="single-settle-next-top" type="button">继续下一把</button>
+            </div>
+          </div>
+          <div class="single-settle-board"><span>公共牌</span><div id="singleSettleBoard"></div></div>
+          <div class="single-settle-summary" id="singleSettleTotal"></div>
+          <div id="singleSettleList" class="single-settle-list"></div>
+          <div class="single-settle-foot">
+            <span class="settle-note">15 秒后自动继续 · 退出请到设置</span>
+          </div>
+        </div>
+        <div id="thinking" class="thinking hidden"><i></i><span>对手思考中</span></div>
+      </div>
+
+      <div id="roomOverlay" class="modal-backdrop hidden">
+        <div class="modal modal-small room-modal">
+          <button class="room-leave-top" id="btnRoomLeave" type="button">离开</button>
+          <div class="modal-eyebrow">在线房间</div>
+          <h2 id="roomTitle">房间 ---</h2>
+          <p class="modal-copy" id="roomHint">把房间号与口令告诉好友。</p>
+          <div class="room-code">
+            <span>房间号</span><b id="roomCode">---</b>
+            <span>口令</span><b id="roomPass">---</b>
+          </div>
+          <div class="room-status">
+            <span id="roomCount">在线 1 / 8</span>
+            <em id="roomRole">你是房主</em>
+          </div>
+          <div class="room-players" id="roomPlayers"></div>
+          <div class="host-room-settings hidden" id="hostRoomSettings">
+            <div class="host-room-head"><b>房主设置</b><em>仅房主可改 · 开局前生效</em></div>
+            <div class="host-room-grid">
+              <label>每人初始筹码<input id="hostRoomChips" type="number" min="20" max="100000" step="10" value="100" inputmode="numeric" /></label>
+              <label>盲注
+                <select id="hostRoomBlind">
+                  <option value="1/2">1 / 2</option>
+                  <option value="2/4">2 / 4</option>
+                  <option value="5/10">5 / 10</option>
+                  <option value="10/20">10 / 20</option>
+                </select>
+              </label>
+            </div>
+            <label class="switch room-switch"><input id="hostRoomSpectate" type="checkbox" /><i></i><span>输家观战（不能看底牌）</span></label>
+            <button class="mini-btn" id="btnHostRoomSave" type="button">保存房主设置</button>
+          </div>
+          <p class="room-tip">空位由 AI 补齐；房主点击「开始牌局」后才会发牌。</p>
+          <div class="modal-footer">
+            <button class="btn room-ready-btn hidden" id="btnRoomReady" type="button">准备</button>
+            <button class="btn btn-primary" id="btnRoomStart" type="button">开始牌局</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="guestTable" class="guest-table hidden">
+        <div class="gt-top">
+          <span class="gt-brand">德扑之夜 · 在线牌桌</span>
+          <span class="gt-meta"><b id="gtHand">第 1 手</b><i></i><b id="gtRoom">房间 ---</b></span>
+          <button id="gtLeave" class="gt-leave" type="button">离开</button>
+        </div>
+        <div class="gt-felt">
+          <div class="gt-center">
+            <div class="gt-pot"><span>底池</span><b id="gtPot">0</b></div>
+            <div class="gt-board" id="gtBoard"></div>
+            <div class="gt-msg" id="gtMsg">等待房主开始…</div>
+          </div>
+          <div class="gt-seats" id="gtSeats"></div>
+        </div>
+        <div id="gtShowdown" class="gt-showdown hidden">
+          <div class="gt-showdown-head">
+            <div class="gt-showdown-title">
+              <b id="gtShowdownTitle">本手结算</b>
+              <em class="gt-showdown-sub">按牌力从大到小 · 底牌与成牌全部公开</em>
+            </div>
+            <span id="gtShowdownTimer">下一手 60s</span>
+          </div>
+          <div class="gt-showdown-board"><span>公共牌</span><div id="gtShowdownBoard"></div></div>
+          <div id="gtShowdownList" class="gt-showdown-list"></div>
+          <div class="gt-showdown-actions">
+            <span id="gtReadyCount">0/0 已准备</span>
+            <button id="gtReadyNext" type="button">继续下一把</button>
+          </div>
+        </div>
+        <div class="gt-bottom">
+          <div class="gt-you">
+            <span class="gt-you-label">你的底牌</span>
+            <div class="gt-hole" id="gtHole"></div>
+            <span class="gt-hand-name" id="gtHandName"></span>
+            <span class="gt-stack">筹码 <b id="gtStack">0</b></span>
+          </div>
+          <div class="gt-actions hidden" id="gtActions">
+            <div class="gt-timer"><i id="gtTimerBar"></i><span id="gtTimerText">15s</span></div>
+            <div class="gt-raise">
+              <span>加注到</span><b id="gtRaiseVal">0</b>
+              <input type="range" id="gtRange" min="0" max="0" step="5" value="0" />
+            </div>
+            <div class="gt-presets">
+              <button data-frac="0.5" type="button">½ 池</button>
+              <button data-frac="0.75" type="button">¾ 池</button>
+              <button data-frac="1" type="button">满池</button>
+              <button data-allin="1" type="button">全下</button>
+            </div>
+            <div class="gt-btns">
+              <button id="gtFold" class="btn btn-fold" type="button">弃牌</button>
+              <button id="gtCall" class="btn btn-call" type="button">过牌</button>
+              <button id="gtRaise" class="btn btn-primary" type="button">加注</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="lobby" class="lobby">
+        <div class="lobby-ambient" aria-hidden="true">
+          <span class="ambient-orb orb-a"></span>
+          <span class="ambient-orb orb-b"></span>
+          <span class="ambient-grid"></span>
+        </div>
+
+        <header class="lobby-top">
+          <div class="lobby-brand">
+            <span class="lobby-crest">德</span>
+          </div>
+          <div class="legal-warning" role="note">
+            禁止赌博 · 本平台仅供娱乐，不提供赌博场所或盈利服务
+          </div>
+          <div class="lobby-top-actions">
+            <div class="online-pill" title="当前在线玩家">
+              <i></i><span>ONLINE</span><b id="onlineCount">0</b>
+            </div>
+            <button class="career-btn hidden" id="btnCareer" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.3 9.4l6.1-.8L12 3z"/></svg>
+              <span>&#29983;&#28082;</span>
+            </button>
+            <button class="admin-console-btn hidden" id="btnAdminConsole" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8 3.5-3.8"/></svg>
+              <span>后台管理</span>
+            </button>
+            <button class="lobby-gear-btn" id="btnLobbyGear" type="button" aria-label="设置">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.1"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.08A1.7 1.7 0 0 0 8.9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.08A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.08A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v.08A1.7 1.7 0 0 0 21 10h.08a2 2 0 1 1 0 4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <main class="lobby-main">
+          <section class="lobby-hero">
+            <div class="hero-kicker"><i></i>PRIVATE TABLE · 第一视角</div>
+            <h1>德扑<span>之夜</span></h1>
+            <p class="hero-lede">灯影落在绒面牌桌上，八张椅子虚位以待。<br />落座，就是今晚的主角。</p>
+
+            <div class="lobby-player-row">
+              <button class="lobby-player" id="btnPlayerChip" type="button">
+                <span class="lobby-avatar" id="playerAvatar">?</span>
+                <span class="lobby-player-meta"><b id="playerName">游客</b><em id="playerLevel">点击登录 / 设置</em></span>
+                <span class="lobby-player-arrow">›</span>
+              </button>
+              <div class="lobby-resources only-chips">
+                <span class="lobby-res"><i class="res-chip">◆</i><b id="resChips">—</b><em>筹码</em></span>
+              </div>
+            </div>
+
+            <div class="hero-marks"><span>无限注</span><i></i><span>八人桌</span><i></i><span>第一视角</span></div>
+          </section>
+
+          <section class="lobby-stage">
+            <div class="stage-head">
+              <div><span class="stage-kicker">GAME MODES</span><h2>选择牌局</h2></div>
+              <em>SELECT MODE</em>
+            </div>
+
+            <div class="mode-cards" id="modeCards">
+              <button class="mode-card" type="button" data-mode="match">
+                <span class="mode-card-top"><span class="mode-index">01</span><span class="mode-icon">♠</span></span>
+                <span class="mode-title">在线匹配</span>
+                <span class="mode-desc">与真实玩家同桌，满 2 人开局</span>
+                <span class="mode-status" id="cardMatchStatus">有筹码即可匹配</span>
+              </button>
+              <button class="mode-card" type="button" data-mode="friend">
+                <span class="mode-card-top"><span class="mode-index">02</span><span class="mode-icon">♥</span></span>
+                <span class="mode-title">好友房间</span>
+                <span class="mode-desc">自定义人数、筹码与盲注</span>
+                <span class="mode-status">好友同乐</span>
+              </button>
+              <button class="mode-card" type="button" data-mode="single">
+                <span class="mode-card-top"><span class="mode-index">03</span><span class="mode-icon">♣</span></span>
+                <span class="mode-title">单机牌桌</span>
+                <span class="mode-desc">与 AI 对战，无需账户</span>
+                <span class="mode-status">随时开局</span>
+              </button>
+
+              
+            </div>
+
+            <div class="lobby-panels">
+              <div id="onlinePanel" class="lobby-panel-body hidden">
+                <div class="panel-head"><b>在线匹配</b><button class="mini-btn" id="btnRefreshMatch" type="button">刷新</button></div>
+                <button class="primary-action" id="btnQuickMatch" type="button"><span>开始在线匹配</span><small>点击后才会加入房间</small></button>
+                <p id="matchHint" class="match-hint hidden" role="status" aria-live="polite"></p>
+                <div class="match-rooms" id="matchRooms"></div>
+                <p class="panel-note">满 2 人开始 1 分钟倒计时，倒计时结束立即开局。</p>
+              </div>
+
+              <div id="lanPanel" class="lobby-panel-body hidden">
+                <div class="panel-head"><b>好友房间</b><em>点击房间，输入口令即可加入</em></div>
+                <div class="lan-row">
+                  <button class="primary-action" id="btnCreateRoom" type="button">创建房间</button>
+                  <button class="ghost-action" id="btnRefreshLan" type="button">刷新房间</button>
+                </div>
+                <p id="lanHint" class="match-hint hidden" role="status" aria-live="polite"></p>
+                <div class="lan-room-list-head"><b>等待加入的房间</b><em>房间号无需手输</em></div>
+                <div id="lanRooms" class="match-rooms lan-rooms">
+                  <div class="match-empty">正在读取好友房间…</div>
+                </div>
+                <div class="online-forms">
+                  <div class="online-form create-room-form hidden" id="createForm">
+                    <input id="createName" maxlength="8" placeholder="房间名" value="好友牌桌" />
+                    <input id="createPass" maxlength="3" inputmode="numeric" placeholder="3 位口令" />
+                    <button class="primary-action create-confirm-top" id="btnCreateConfirm" type="button">创建并进入</button>
+                    <div class="room-config-grid">
+                      <label>人数
+                        <select id="createSeats">
+                          <option value="2">2 人</option>
+                          <option value="3">3 人</option>
+                          <option value="4">4 人</option>
+                          <option value="5">5 人</option>
+                          <option value="6">6 人</option>
+                          <option value="7">7 人</option>
+                          <option value="8" selected>8 人</option>
+                        </select>
+                      </label>
+                      <label>初始筹码
+                        <input id="createChips" type="number" min="20" max="100000" step="10" value="100" inputmode="numeric" />
+                      </label>
+                      <label>盲注
+                        <select id="createBlind">
+                          <option value="1/2" selected>1 / 2</option>
+                          <option value="2/4">2 / 4</option>
+                          <option value="5/10">5 / 10</option>
+                          <option value="10/20">10 / 20</option>
+                        </select>
+                      </label>
+                      <label class="switch room-switch"><input id="createLoserSpectate" type="checkbox" checked /><i></i><span>输家观战</span></label>
+                    </div>
+                  </div>
+                </div>
+                <p class="panel-note">昵称自动使用当前账号昵称，不需要重复输入。</p>
+              </div>
+
+              <div id="singlePanel" class="lobby-panel-body hidden">
+                <div class="single-grid">
+                  <div class="field" data-field="seats">
+                    <div class="field-head"><label>入座人数</label><em id="seatNote">八人满座</em></div>
+                    <div class="segs" id="seatSegs"></div>
+                  </div>
+                  <div class="field" data-field="stack">
+                    <div class="field-head"><label>初始筹码</label><em>每人</em></div>
+                    <div class="stack-input">
+                      <button class="step-btn" id="btnStackMinus" type="button">−</button>
+                      <input id="stackInput" type="number" min="20" max="100000" step="10" value="100" inputmode="numeric" />
+                      <button class="step-btn" id="btnStackPlus" type="button">＋</button>
+                    </div>
+                  </div>
+                  <div class="field" data-field="blind">
+                    <div class="field-head"><label>盲注</label><em>小盲 / 大盲</em></div>
+                    <div class="segs" id="blindSegs"></div>
+                  </div>
+                </div>
+                <label id="adminScenePicker" class="admin-scene-picker hidden">
+                  <span>管理员测试场景</span>
+                  <select id="adminSceneSelect">
+                    <option value="private">私人牌室</option>
+                    <option value="yacht">海上游艇</option>
+                    <option value="bus">夜班公交</option>
+                    <option value="grassland">草原牧场</option>
+                    <option value="airplane">万米高空</option>
+                    <option value="night_market">霓虹夜市</option>
+                  </select>
+                </label>
+                <button id="btnStoryMode" class="single-story-entry" type="button">
+                  <span class="single-story-mark">✦</span>
+                  <span class="single-story-copy">
+                    <em>STORY MODE</em>
+                    <b>剧情闯关</b>
+                    <small>3D 电影场景 · 两段悬疑剧情 · 单机专属</small>
+                  </span>
+                  <span class="single-story-cta">进入故事 →</span>
+                </button>
+                <div class="field switches">
+                  <label class="switch"><input type="checkbox" id="optMusic" checked /><i></i><span>背景轻音乐</span></label>
+                  <label class="switch"><input type="checkbox" id="optSfx" checked /><i></i><span>牌桌音效</span></label>
+                  <label class="switch"><input type="checkbox" id="optVoice" checked /><i></i><span>术语播报</span></label>
+                  <label class="switch"><input type="checkbox" id="optLowMotion" /><i></i><span>低动态模式</span></label>
+                </div>
+              </div>
+            </div>
+
+            <button id="btnStart" class="startbtn" type="button">
+              <span>入座开局</span>
+              <small>建议佩戴耳机 · 体验更佳</small>
+            </button>
+          </section>
+        </main>
+
+        <footer class="lobby-foot">
+          <span>鼠标移动环视 · 滚轮微调视角 · F / C / R 快捷行动</span>
+          <span class="lobby-version">v<span id="lobbyVersion">dev</span></span>
+        </footer>
+
+      </section>
+
+      <section id="storyScreen" class="story-screen hidden" aria-label="剧情闯关">
+        <canvas id="storyCanvas" class="story-canvas" aria-hidden="true"></canvas>
+        <div id="storyBg" class="story-bg theme-tide" aria-hidden="true">
+          <i class="story-sky"></i>
+          <i class="story-sun"></i>
+          <i class="story-sea"></i>
+          <i class="story-wave wave-a"></i>
+          <i class="story-wave wave-b"></i>
+          <i class="story-building"></i>
+          <i class="story-lights"></i>
+          <i class="story-dust"></i>
+        </div>
+        <header class="story-top">
+          <button id="btnStoryBack" class="story-back" type="button">← 返回大厅</button>
+          <div class="story-brand">
+            <span>STORY MODE</span>
+            <b>剧情闯关</b>
+            <em>在电影里，打一局牌</em>
+          </div>
+          <div class="story-progress" id="storyProgress">0 / 2</div>
+        </header>
+        <div class="story-select" id="storySelect">
+          <div class="story-intro">
+            <span class="story-eyebrow">CINEMATIC CAMPAIGN</span>
+            <h1>牌桌之外，<br><i>还有故事。</i></h1>
+            <p>两个原创悬疑章节。走进海边的晚宴、海崖上的餐厅，<br>和故事里的人坐下，赢下属于你的那一手。</p>
+            <small>灵感来自近五年悬疑电影 · 原创剧情与角色，不使用电影素材</small>
+          </div>
+          <div class="story-chapters" id="storyChapters"></div>
+        </div>
+        <div class="story-detail hidden" id="storyDetail">
+          <div id="storyStage" class="story-stage theme-tide">
+            <div class="stage-art" aria-hidden="true">
+              <i class="stage-sky"></i><i class="stage-sun"></i><i class="stage-sea"></i>
+              <i class="stage-building"></i><i class="stage-lights"></i><i class="stage-grain"></i>
+            </div>
+            <div class="stage-caption">
+              <span id="storyPlace">海岛餐厅 · 台风夜</span>
+              <b id="storyDetailTitle">潮汐晚宴</b>
+              <em id="storyDetailSub">CHAPTER 01 · 悬疑</em>
+            </div>
+            <div class="stage-people">
+              <div class="stage-person lead" id="storyLead"><span id="storyLeadMark">你</span><em>牌手</em></div>
+              <div class="stage-line"></div>
+              <div class="stage-person rival" id="storyRival"><span id="storyRivalMark">林</span><em id="storyRivalName">林晚</em></div>
+            </div>
+            <div class="stage-objective" id="storyObjective">目标 · 赢下这一手</div>
+          </div>
+          <div class="story-dialogue">
+            <div class="dialogue-head">
+              <span id="dialogueRole">旁白</span>
+              <small id="dialogueIndex">01 / 04</small>
+            </div>
+            <p id="dialogueText"></p>
+            <div class="dialogue-actions">
+              <button id="btnStorySkip" class="story-btn ghost" type="button">跳过剧情</button>
+              <button id="btnStoryNext" class="story-btn primary" type="button">继续 →</button>
+            </div>
+          </div>
+        </div>
+        <div class="story-cinema-bars" aria-hidden="true"><i></i><i></i></div>
+      </section>
+
+      <div id="storyResult" class="story-result hidden">
+        <div class="story-result-card">
+          <span id="resultKicker">MISSION COMPLETE</span>
+          <h2 id="resultTitle">任务完成</h2>
+          <p id="resultText"></p>
+          <div class="story-result-actions">
+            <button id="btnResultNext" class="story-btn primary" type="button">进入下一关</button>
+            <button id="btnResultRetry" class="story-btn ghost" type="button">重新挑战</button>
+            <button id="btnResultBack" class="story-btn ghost" type="button">返回章节</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="socialInvite" class="social-invite hidden" role="status" aria-live="polite">
+        <span class="social-live"><i></i>LIVE</span>
+        <span class="social-invite-copy">
+          <b id="socialInviteTitle">在线匹配有人等待</b>
+          <small id="socialInviteSub">点「去匹配」加入</small>
+        </span>
+        <button id="btnSocialJoin" class="social-join" type="button">去匹配</button>
+        <button id="btnSocialClose" class="social-close" type="button" aria-label="关闭提醒">×</button>
+      </div>
+
+      <div id="loginOverlay" class="modal-backdrop hidden">
+        <div class="modal modal-small login-modal">
+          <div class="modal-eyebrow">德扑之夜 · 账户</div>
+          <h2 id="loginTitle">登录账户</h2>
+          <p class="modal-copy">登录后参与在线匹配；新账户赠送 100 筹码，之后按配置定期补充筹码。</p>
+          <div class="login-tabs">
+            <button class="login-tab active" type="button" data-tab="login">登录</button>
+            <button class="login-tab" type="button" data-tab="register">注册</button>
+          </div>
+          <div class="login-fields">
+            <input id="loginUser" maxlength="16" autocomplete="username" placeholder="用户名（3-16 位）" />
+            <input id="loginPass" type="password" maxlength="32" autocomplete="current-password" placeholder="密码（6-32 位）" />
+            <label class="login-field-label hidden" id="loginNameLabel" for="loginName">昵称（牌桌上显示，不要填账号或密码）</label>
+            <input id="loginName" class="hidden" maxlength="12" autocomplete="nickname" placeholder="例如：夜航玩家" />
+          </div>
+          <p class="login-error" id="loginError"></p>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnLoginSkip" type="button">游客继续</button>
+            <button class="btn btn-primary" id="btnLoginSubmit" type="button">登录</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="nicknameModal" class="modal-backdrop hidden">
+        <div class="modal modal-small">
+          <div class="modal-eyebrow">账户资料</div>
+          <h2>修改昵称</h2>
+          <p class="modal-copy">昵称会显示在牌桌、房间和排行榜。请不要填写密码或手机号。</p>
+          <div class="login-fields">
+            <input id="nicknameInput" maxlength="12" placeholder="新昵称（1-12 个字符）" />
+          </div>
+          <p class="login-error" id="nicknameError"></p>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnNicknameCancel" type="button">取消</button>
+            <button class="btn btn-primary" id="btnNicknameSave" type="button">保存昵称</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="joinRoomModal" class="modal-backdrop hidden">
+        <div class="modal modal-small login-modal">
+          <div class="modal-eyebrow">好友房间</div>
+          <h2 id="joinRoomTitle">加入房间</h2>
+          <p class="modal-copy" id="joinRoomMeta">输入房间口令即可加入。</p>
+          <input id="joinRoomPass" maxlength="3" inputmode="numeric" placeholder="输入 3 位口令" autocomplete="off" />
+          <p class="login-error" id="joinRoomError"></p>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnJoinRoomCancel" type="button">取消</button>
+            <button class="btn btn-primary" id="btnJoinRoomConfirm" type="button">加入房间</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="joinLoading" class="modal-backdrop hidden">
+        <div class="modal modal-small join-loading-modal">
+          <div class="join-loading-spinner" aria-hidden="true"></div>
+          <div class="modal-eyebrow">好友房间</div>
+          <h2 id="joinLoadingTitle">正在加入房间</h2>
+          <p class="modal-copy" id="joinLoadingText">正在验证口令并连接牌桌…</p>
+          <div class="join-loading-bar"><i id="joinLoadingBar"></i></div>
+          <div class="join-loading-players" id="joinLoadingPlayers"></div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnJoinLoadingLeave" type="button">离开</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="onlineGameOver" class="modal-backdrop hidden">
+        <div class="modal modal-small">
+          <div class="modal-eyebrow">牌局结束</div>
+          <h2 id="onlineGameOverTitle">筹码已用完</h2>
+          <p class="modal-copy" id="onlineGameOverText">本局已经结束。</p>
+          <div class="modal-footer gameover-actions">
+            <button class="btn btn-primary" id="btnGameOverRestart" type="button">重新分配筹码继续</button>
+            <button class="btn btn-ghost" id="btnGameOverWatch" type="button">继续观战</button>
+            <button class="btn btn-ghost" id="btnGameOverExit" type="button">退出房间</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="lobbySettingsModal" class="modal-backdrop hidden">
+        <div class="modal settings-sheet settings-three">
+          <div class="settings-col settings-left">
+            <div class="settings-head">
+              <span class="stage-kicker">PLAYER HUB</span>
+              <h2>设置</h2>
+              <p>账户、牌桌与声音</p>
+            </div>
+            <div class="lobby-profile" id="lobbyProfile"></div>
+            <div class="settings-left-note">
+              <span>第一视角 · 无限注</span>
+              <em>账户资料与筹码</em>
+            </div>
+            <button class="settings-back" id="btnLobbySettingsBack" type="button">← 返回大厅</button>
+          </div>
+
+          <div class="settings-col settings-center">
+            <div class="settings-section-label"><span>账户与内容</span><em>点击进入</em></div>
+            <div class="settings-grid">
+              <button class="settings-row" id="btnLobbyLogin" type="button"><span>↳</span><div><b>登录 / 注册</b><em>在线匹配</em></div></button>
+              <button class="settings-row" id="btnLobbyNickname" type="button"><span>✎</span><div><b>修改昵称</b><em>牌桌显示名</em></div></button>
+              <button class="settings-row" id="btnLobbyLeaderboard" type="button"><span>♛</span><div><b>排行榜</b><em>筹码榜</em></div></button>
+              <button class="settings-row" id="btnLobbyHelp" type="button"><span>?</span><div><b>规则与操作</b><em>牌型 / 快捷键</em></div></button>
+              <button class="settings-row" id="btnLobbyUpdate" type="button"><span>↻</span><div><b>检查更新</b><em>v<b id="lobbyVersionInline">—</b></em></div></button>
+              <button class="settings-row danger" id="btnLobbyLogout" type="button"><span>⎋</span><div><b>退出登录</b><em>保留单机</em></div></button>
+              <button class="settings-row danger" id="btnLobbyExit" type="button"><span>⏻</span><div><b>退出游戏</b><em>关闭应用</em></div></button>
+            </div>
+            <div class="settings-center-foot">
+              <span>在线匹配</span>
+              <b>4 间房 · 每间 8 人</b>
+              <em>按 1 → 2 → 3 → 4 顺序填满</em>
+            </div>
+          </div>
+
+          <div class="settings-col settings-right">
+            <div class="settings-section-label"><span>牌桌选项</span><em>即时生效</em></div>
+            <div class="settings-options">
+              <label class="settings-toggle"><input id="lobbySetMusic" type="checkbox" checked /><i></i><span><b>背景音乐</b><em>酒吧环境声与弦乐</em></span></label>
+              <label class="settings-toggle"><input id="lobbySetSfx" type="checkbox" checked /><i></i><span><b>牌桌音效</b><em>发牌 / 筹码 / 行动</em></span></label>
+              <label class="settings-toggle"><input id="lobbySetVoice" type="checkbox" checked /><i></i><span><b>语音播报</b><em>行动与牌型</em></span></label>
+              <label class="settings-toggle"><input id="lobbySetLowMotion" type="checkbox" /><i></i><span><b>低动态模式</b><em>关闭镜头跟随与强动效</em></span></label>
+              <label class="settings-voice">
+                <span><b>语音输出音量</b><em>房间语音 · 默认大</em></span>
+                <select id="lobbyVoiceVolume">
+                  <option value="small">小 · 1倍（当前）</option>
+                  <option value="medium">中 · 2倍</option>
+                  <option value="large">大 · 3倍（默认）</option>
+                  <option value="extraLarge">特大 · 3.5倍</option>
+              <option value="huge">超大 · 4倍</option>
+                </select>
+              </label>
+              <label class="settings-voice">
+                <span><b>播报声音</b><em>男女声 · 音色</em></span>
+                <select id="lobbyVoiceProfile">
+                  <option value="female_warm">女声 · 温柔</option>
+                  <option value="female_bright">女声 · 清亮</option>
+                  <option value="male_deep">男声 · 沉稳</option>
+                  <option value="male_warm">男声 · 磁性</option>
+                  <option value="female_sweet">女声 · 甜系</option>
+                  <option value="female_mature" selected>女声 · 御姐</option>
+                  <option value="male_clear">男声 · 清朗</option>
+                  <option value="male_uncle">男声 · 大叔</option>
+                </select>
+              </label>
+            </div>
+            <div class="settings-right-note">
+              <span>声音在第一次点击后启动</span>
+              <em>退出大厅请用左侧返回</em>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="leaderModal" class="modal-backdrop hidden">
+        <div class="modal modal-small leader-modal">
+          <div class="modal-eyebrow">荣誉与贡献</div>
+          <h2>排行榜</h2>
+          <div class="leader-honor" id="leaderHonor"></div>
+          <div class="leader-tabs" id="leaderTabs">
+            <button class="active" type="button" data-tab="chips">筹码榜</button>
+          </div>
+          <div class="leader-list" id="leaderList"></div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" id="btnLeaderClose" type="button">关闭</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="helpModal" class="modal-backdrop hidden">
+        <div class="modal">
+          <button class="modal-close" id="btnHelpClose" aria-label="关闭">×</button>
+          <div class="modal-eyebrow">牌桌手册</div>
+          <h2>规则与操作</h2>
+          <div class="modal-grid">
+            <div class="modal-block">
+              <h3>无限注德州扑克</h3>
+              <p>每人两张底牌，与桌面五张公共牌组合出最强的五张牌。经过翻牌前、翻牌、转牌、河牌四轮下注，摊牌比大小。可随时全下，边池自动结算。</p>
+            </div>
+            <div class="modal-block">
+              <h3>快捷操作</h3>
+              <ul>
+                <li><b>F</b> 弃牌</li>
+                <li><b>C</b> 过牌 / 跟注</li>
+                <li><b>R</b> 按当前金额加注</li>
+                <li><b>鼠标</b> 轻微环视牌桌</li>
+              </ul>
+            </div>
+            <div class="modal-block">
+              <h3>牌型大小</h3>
+              <p>皇家同花顺 › 同花顺 › 四条 › 葫芦 › 同花 › 顺子 › 三条 › 两对 › 一对 › 高牌</p>
+            </div>
+            <div class="modal-block">
+              <h3>数字牌面</h3>
+              <p>牌面以数字显示：11 = J、12 = Q、13 = K、14 = A。牌角「♠ / ♥ / ♦ / ♣」分别代表黑桃、红桃、方块、梅花。左侧牌面面板可点击「切换」或左右滑动查看底牌与公共牌，也可「收起」只留一个侧边拉手。</p>
+            </div>
+            <div class="modal-block">
+              <h3>关于本局</h3>
+              <p>筹码见底后可重新买入，机器人对手也会补充筹码，牌局会一直继续。你可以随时返回大厅调整人数、筹码与盲注。</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnBackLobby" type="button">返回大厅</button>
+            <button class="btn btn-primary" id="btnResume" type="button">回到牌桌</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameover" class="modal-backdrop hidden">
+        <div class="modal modal-small">
+          <div class="modal-eyebrow">本局结束</div>
+          <h2>筹码见底</h2>
+          <p class="modal-copy" id="gameoverCopy">牌桌还在，位置还热。重新买入，再来一手。</p>
+          <div class="modal-stats">
+            <div><span>牌局总数</span><b id="statHands">0</b></div>
+            <div><span>最大底池</span><b id="statPot">0</b></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnGameoverLobby" type="button">返回大厅</button>
+            <button class="btn btn-primary" id="btnRebuy" type="button">重新买入</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="ready" class="modal-backdrop hidden">
+        <div class="modal modal-small ready-modal">
+          <div class="modal-eyebrow">下一手准备</div>
+          <h2>准备继续</h2>
+          <p class="modal-copy">15 秒内点击继续；超时将自动继续下一手。</p>
+          <div class="ready-count"><b id="readyCount">15</b><span>秒</span></div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnReadyExit" type="button">退出牌桌</button>
+            <button class="btn btn-primary" id="btnReadyGo" type="button">继续游戏</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="voicePanelModal" class="modal-backdrop hidden">
+        <div class="modal modal-small voice-modal" role="dialog" aria-modal="true" aria-labelledby="voicePanelTitle">
+          <button class="modal-close" id="btnVoicePanelClose" type="button" aria-label="关闭">×</button>
+          <div class="modal-eyebrow">VOICE ROOM</div>
+          <h2 id="voicePanelTitle">语音与麦克风</h2>
+          <p class="voice-modal-sub">默认能听到所有人。可以单独禁音，也可以只听某一位玩家。</p>
+
+          <button id="btnVoiceMaster" class="voice-master-card" type="button" aria-pressed="false">
+            <span class="voice-master-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7"/></svg>
+            </span>
+            <span class="voice-master-copy">
+              <b id="voiceMasterTitle">开启语音</b>
+              <small id="voiceMasterText">点击后开启麦克风，同时接收房间语音</small>
+            </span>
+            <span class="voice-master-state" id="voiceMasterState">OFF</span>
+          </button>
+          <div class="voice-mode-row">
+            <button class="voice-mode-btn" id="btnVoiceListenOnly" type="button">只听不发言</button>
+            <span>绿色 = 可说话 + 可接收所有人</span>
+          </div>
+
+          <section class="mic-test-card">
+            <div class="mic-test-head">
+              <div>
+                <b>麦克风测试</b>
+                <small id="micTestHint">说话时电平条会实时跳动</small>
+              </div>
+              <button class="voice-chip primary" id="btnMicTest" type="button">开始测试</button>
+            </div>
+            <div class="mic-test-track"><i id="micTestLevel"></i></div>
+            <p class="mic-test-status" id="micTestStatus">未测试</p>
+          </section>
+
+          <div class="voice-list-head">
+            <b>房间语音</b>
+            <button class="voice-chip" id="btnVoiceMuteAll" type="button">全部静音</button>
+          </div>
+          <div id="voicePlayerList" class="voice-player-list"></div>
+          <p class="voice-panel-note">禁音和「只听」只影响你的设备，不会通知其他玩家。默认全部可听。</p>
+          <p class="voice-diag" id="voiceDiag">语音上传 0 包 · 接收 0 包</p>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnVoicePanelDone" type="button">关闭</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="settingsModal" class="modal-backdrop hidden">
+        <div class="modal settings-modal settings-modal-v2" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+          <header class="settings-head">
+            <div class="settings-head-copy">
+              <span class="settings-kicker">TABLE PREFERENCES</span>
+              <h2 id="settingsTitle">设置</h2>
+              <p>调整音量、视角与语音，所有更改即时生效。</p>
+            </div>
+            <button class="settings-close" id="btnSettingsClose" type="button" aria-label="关闭设置">×</button>
+          </header>
+          <div class="settings-scroll">
+            <section class="settings-section">
+              <div class="settings-section-head"><div><b>声音</b><span>大厅与牌桌的声音开关</span></div><em>SOUND</em></div>
+              <div class="settings-group">
+                <label class="settings-row">
+                  <span class="settings-row-icon">♪</span>
+                  <span class="settings-row-copy"><b>背景音乐</b><small>大厅与牌桌氛围音乐</small></span>
+                  <span class="settings-switch"><input type="checkbox" id="setMusic" checked /><i></i></span>
+                </label>
+                <label class="settings-row">
+                  <span class="settings-row-icon">✦</span>
+                  <span class="settings-row-copy"><b>牌桌音效</b><small>发牌、下注与结算提示音</small></span>
+                  <span class="settings-switch"><input type="checkbox" id="setSfx" checked /><i></i></span>
+                </label>
+                <label class="settings-row">
+                  <span class="settings-row-icon">◈</span>
+                  <span class="settings-row-copy"><b>语音播报</b><small>行动、牌型与结算女声播报</small></span>
+                  <span class="settings-switch"><input type="checkbox" id="setVoice" checked /><i></i></span>
+                </label>
+                <label class="settings-row">
+                  <span class="settings-row-icon">◉</span>
+                  <span class="settings-row-copy"><b>接收房间语音</b><small>听到其他玩家说话</small></span>
+                  <span class="settings-switch"><input type="checkbox" id="setVoiceReceive" checked /><i></i></span>
+                </label>
+              </div>
+            </section>
+
+            <section class="settings-section">
+              <div class="settings-section-head"><div><b>画面与操作</b><span>视角与动效强度</span></div><em>DISPLAY</em></div>
+              <div class="settings-group">
+                <label class="settings-field">
+                  <span class="settings-field-copy"><b>游戏视角</b><small>第一人称隐藏自己模型，第三人称展示完整牌桌</small></span>
+                  <select id="setViewMode">
+                    <option value="first">第一人称</option>
+                    <option value="third">第三人称</option>
+                  </select>
+                </label>
+                <label class="settings-row">
+                  <span class="settings-row-icon">◐</span>
+                  <span class="settings-row-copy"><b>低动态模式</b><small>减少镜头跟随与强动效，省电更稳</small></span>
+                  <span class="settings-switch"><input type="checkbox" id="setLowMotion" /><i></i></span>
+                </label>
+              </div>
+            </section>
+
+            <section class="settings-section">
+              <div class="settings-section-head"><div><b>语音与播报</b><span>房间语音和个人听感</span></div><em>VOICE</em></div>
+              <div class="settings-group">
+                <label class="settings-field">
+                  <span class="settings-field-copy"><b>语音输出音量</b><small>只影响房间语音，不影响音乐与播报</small></span>
+                  <select id="setVoiceVolume">
+                    <option value="small">小 · 1倍（原音量）</option>
+                    <option value="medium">中 · 2倍</option>
+                    <option value="large">大 · 3倍（默认）</option>
+                    <option value="extraLarge">特大 · 3.5倍</option>
+                    <option value="huge">超大 · 4倍</option>
+                  </select>
+                </label>
+                <label class="settings-field">
+                  <span class="settings-field-copy"><b>播报声音</b><small>行动与结算的女声/男声音色</small></span>
+                  <select id="setVoiceProfile">
+                    <option value="female_warm">女声 · 温柔</option>
+                    <option value="female_bright">女声 · 清亮</option>
+                    <option value="male_deep">男声 · 沉稳</option>
+                    <option value="male_warm">男声 · 磁性</option>
+                    <option value="female_sweet">女声 · 甜系</option>
+                    <option value="female_mature">女声 · 御姐</option>
+                    <option value="male_clear">男声 · 清朗</option>
+                    <option value="male_uncle">男声 · 大叔</option>
+                  </select>
+                </label>
+                <div class="settings-actions">
+                  <button id="btnSettingsVoice" class="settings-action primary" type="button">语音设置 · 麦克风/接收</button>
+                  <button id="btnVoiceTest" class="settings-action" type="button">试听播报</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="settings-section">
+              <div class="settings-section-head"><div><b>应用与支持</b><span>版本、更新与帮助</span></div><em>APP</em></div>
+              <div class="settings-group compact">
+                <button id="btnCheckUpdate" class="settings-action wide" type="button">检查更新</button>
+                <button id="btnInstallApp" class="settings-action wide hidden" type="button">安装到主屏幕</button>
+                <p id="iosInstallState" class="settings-note hidden"></p>
+                <div class="settings-meta-row"><span>当前版本</span><b><span id="settingsVersion">dev</span></b></div>
+                <p class="settings-note">语音播报会覆盖行动、跟注、弃牌与结算；音量设置保存在本机。</p>
+              </div>
+            </section>
+          </div>
+          <footer class="settings-foot">
+            <button class="settings-action" id="btnSettingsHelp" type="button">规则与操作</button>
+            <button class="settings-action" id="btnSettingsLobby" type="button">返回大厅</button>
+          </footer>
+        </div>
+      </div>
+
+      <div id="updateModal" class="modal-backdrop hidden">
+        <div class="modal modal-small">
+          <div class="modal-eyebrow">应用更新</div>
+          <h2 id="updateTitle">发现新版本</h2>
+          <p class="modal-copy" id="updateNotes"></p>
+          <p class="settings-version">
+            当前 <span id="updateCurrent">-</span> → 最新 <span id="updateLatest">-</span>
+          </p>
+          <div id="updateProgress" class="update-progress hidden">
+            <div class="update-progress-head">
+              <span>下载进度</span><b id="updateProgressText">0%</b>
+            </div>
+            <div class="update-progress-track"><i id="updateProgressBar"></i></div>
+            <small id="updateProgressBytes">准备下载…</small>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost hidden" id="btnUpdateBrowser" type="button">浏览器下载</button>
+            <button class="btn btn-ghost" id="btnUpdateLater" type="button">稍后</button>
+            <button class="btn btn-primary" id="btnUpdateNow" type="button">立即更新</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="onlineRoster" class="online-roster hidden">
+        <button id="btnOnlineRoster" class="online-roster-toggle" type="button" aria-expanded="false" aria-controls="onlineRosterPanel">
+          <span class="online-roster-label">在线</span>
+          <b id="onlineRosterCount">0</b>
+          <span id="onlineRosterVoice" class="online-roster-voice hidden"><i></i><em>0</em></span>
+          <i class="online-roster-chevron">⌄</i>
+        </button>
+        <div id="onlineRosterPanel" class="online-roster-panel hidden" role="status" aria-live="polite"></div>
+      </div>
+      <div id="toastHost" class="toast-host" role="status" aria-live="polite"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

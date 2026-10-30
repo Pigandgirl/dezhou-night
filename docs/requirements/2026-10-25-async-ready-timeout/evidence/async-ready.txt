@@ -1,0 +1,12 @@
+﻿异步准备单元测试
+1) 5人局一人退出：
+candidates = p1,p2,p3,p4
+ready = 4
+checkNextReady = {started:true}
+2) 5人游戏中第6人加入等待下一手：
+candidates = q1,q2,q3,q4,q5,q6
+ready = 6（第6人 waitingNext 自动准备）
+total = 6
+3) 离线玩家：
+candidates 不包含 offline c
+4) NEXT_HAND_MS = 15000

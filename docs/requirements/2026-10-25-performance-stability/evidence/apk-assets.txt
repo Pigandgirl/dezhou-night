@@ -1,0 +1,4 @@
+﻿APK 静态资源检查
+assets/index.html 1,047,404 bytes
+assets/voice_*.mp3 192 个，合计 1,607,328 bytes
+nested assets/voice\ 目录 0 个

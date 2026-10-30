@@ -1,0 +1,4 @@
+﻿WebSocket 主通道测试
+A: wsActive=true, wsState=1, packetsSent=145, audioContext=running, jitterTarget=0.32
+B（未开麦）: wsActive=true, wsState=1, packetsReceived=145, lastReceivedLevel=0.5067, audioContext=running, jitterTarget=0.34
+发送 145 帧 / 接收 145 帧，无丢帧。

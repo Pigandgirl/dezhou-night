@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>德扑之夜 · 微信登录与真实收款接入文档</title>
+<style>
+  :root{
+    --bg:#0c0e12; --panel:#12161c; --line:#242b35; --cream:#ece5d8;
+    --muted:#9aa3b0; --gold:#d9b977; --gold-bright:#f3dda8; --red:#e08b80;
+    --green:#7fb08a; --code:#0a0d11;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--cream);
+    font:15px/1.75 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;}
+  a{color:var(--gold-bright);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1180px;margin:0 auto;gap:34px;padding:34px 26px 90px}
+  nav{position:sticky;top:24px;align-self:start;font-size:13px;border-left:2px solid var(--line);padding-left:14px}
+  nav h4{margin:18px 0 6px;font-size:11px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+  nav a{display:block;color:var(--muted);padding:3px 0}
+  nav a:hover{color:var(--gold-bright)}
+  header.hero{border:1px solid var(--line);border-radius:18px;padding:26px 28px;
+    background:radial-gradient(120% 140% at 0% 0%,rgba(217,185,119,.14),transparent 60%),var(--panel);margin-bottom:30px}
+  .eyebrow{font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+  h1{font-size:27px;line-height:1.3;margin:8px 0 10px;font-weight:600}
+  .lede{color:var(--muted);margin:0;font-size:14px}
+  .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted)}
+  h2{font-size:20px;margin:44px 0 12px;padding-bottom:9px;border-bottom:1px solid var(--line);font-weight:600}
+  h3{font-size:15px;margin:26px 0 8px;color:var(--gold-bright);font-weight:600}
+  p{margin:9px 0;color:#d6cfc2}
+  ul,ol{padding-left:20px;color:#d6cfc2}
+  li{margin:5px 0}
+  code{font-family:"Cascadia Mono",Consolas,monospace;font-size:12.5px;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:5px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:11px;padding:14px 16px;overflow:auto;font-size:12.5px;line-height:1.65}
+  pre code{background:none;padding:0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:rgba(217,185,119,.08);color:var(--gold-bright);font-weight:600}
+  .callout{border-radius:12px;padding:13px 16px;margin:16px 0;font-size:13.5px;border:1px solid var(--line);background:var(--panel)}
+  .callout.warn{border-color:#5a3a33;background:#1c1310}
+  .callout.warn b{color:var(--red)}
+  .callout.tip{border-color:#33465a;background:#0f161d}
+  .callout.tip b{color:#8db8d9}
+  .ok{color:var(--green)}
+  .bad{color:var(--red)}
+  .steps{counter-reset:s;list-style:none;padding:0}
+  .steps li{counter-increment:s;position:relative;padding:10px 0 10px 40px;border-bottom:1px dashed var(--line)}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:24px;height:24px;border-radius:50%;
+    display:grid;place-items:center;font-size:11px;color:#120d07;background:linear-gradient(180deg,var(--gold-bright),var(--gold))}
+  .steps li:last-child{border-bottom:0}
+  .check{list-style:none;padding-left:0}
+  .check li::before{content:"☐";margin-right:8px;color:var(--gold)}
+  .footer{margin-top:52px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr}nav{position:static;border-left:0;border-top:1px solid var(--line);padding:12px 0 0;order:2}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <h4>前置</h4>
+  <a href="#ready">1. 资质与前置条件</a>
+  <a href="#domain">2. 域名与 HTTPS</a>
+  <h4>微信登录</h4>
+  <a href="#login-web">3. 电脑端扫码登录</a>
+  <a href="#login-app">4. Android 微信登录</a>
+  <a href="#login-model">5. 账号合并与数据模型</a>
+  <a href="#login-api">6. 登录接口设计</a>
+  <h4>真实收款</h4>
+  <a href="#pay-product">7. 支付产品选型</a>
+  <a href="#pay-flow">8. 下单与回调时序</a>
+  <a href="#pay-code">9. APIv3 服务端骨架</a>
+  <a href="#pay-client">10. 客户端拉起支付</a>
+  <a href="#pay-order">11. 订单表与发货幂等</a>
+  <a href="#pay-ops">12. 退款、对账与补单</a>
+  <h4>落地</h4>
+  <a href="#repo">13. 本仓库改造清单</a>
+  <a href="#env">14. 环境变量与部署</a>
+  <a href="#test">15. 联调与验收用例</a>
+  <a href="#legal">16. 合规风险提示</a>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="eyebrow">Integration Guide</div>
+    <h1>微信登录 与 微信支付（真实收款）接入文档</h1>
+    <p class="lede">面向「德扑之夜」当前架构：Node 零依赖房间服务（<code>server/server.js</code>）+ 单文件 Web 客户端（Vite 打包，Android WebView 与 <code>/play</code> 共用）+ 自建手机号账户体系（<code>src/account.js</code>）。</p>
+    <div class="meta">
+      <span class="tag">微信开放平台 · 网站应用 / 移动应用</span>
+      <span class="tag">微信支付 APIv3</span>
+      <span class="tag">Native / APP / JSAPI</span>
+      <span class="tag">RSA-SHA256 + AES-256-GCM</span>
+    </div>
+  </header>
+
+  <div class="callout warn">
+    <b>先看结论：</b>微信登录与微信支付都不是“填个 AppID 就能用”，全部依赖<strong>企业主体资质 + 已备案域名 + HTTPS + 审核通过的应用/商户号</strong>。当前服务是 <code>http://192.144.159.220:8080</code>（IP + 明文 HTTP），微信侧<strong>无法</strong>配置该回调地址。必须先补齐第 1、2 节，代码才具备联调条件。
+  </div>
+
+  <h2 id="ready">1. 资质与前置条件</h2>
+  <h3>1.1 微信登录所需</h3>
+  <table>
+    <tr><th>项目</th><th>要求</th><th>产出</th></tr>
+    <tr><td>微信开放平台账号</td><td>企业主体（个体户亦可），需营业执照、对公账户打款验证</td><td>开放平台开发者账号</td></tr>
+    <tr><td>网站应用</td><td>用于电脑端 <code>/play</code> 扫码登录；需已备案域名、网站可访问、类目说明</td><td><code>AppID</code> / <code>AppSecret</code>，审核周期约 1–7 个工作日</td></tr>
+    <tr><td>移动应用</td><td>用于 Android APK 内微信登录；需填包名 <code>com.dezhounight.poker</code> 与签名 MD5</td><td>同一开放平台下的 <code>AppID</code>（移动应用独立 AppID）</td></tr>
+    <tr><td>开放平台账号绑定</td><td>网站应用与移动应用绑定到同一开放平台账号</td><td><code>unionid</code> 跨应用统一，用于账号合并</td></tr>
+  </table>
+  <div class="callout tip">
+    <b>关键限制：</b>扫码登录（<code>snsapi_login</code>）<strong>拿不到手机号</strong>，只能拿到 <code>openid / unionid / 昵称 / 头像</code>。若要“微信一键登录且自动带手机号”，必须额外具备<strong>已认证服务号/小程序</strong>并使用「手机号快速验证组件」（企业主体 + 按次计费）。本项目建议：微信登录后仍要求绑定一次手机号（复用现有账户体系），或允许纯微信账户无手机号参与。
+  </div>
+
+  <h3>1.2 微信支付所需</h3>
+  <table>
+    <tr><th>项目</th><th>要求</th><th>产出</th></tr>
+    <tr><td>微信支付商户号</td><td>企业/个体户，营业执照、法人身份证、对公账户、经营类目（游戏/虚拟道具需相应资质）</td><td><code>mchid</code>（10 位）</td></tr>
+    <tr><td>AppID 绑定</td><td>商户号需绑定网站应用 / 移动应用 AppID（服务商模式则绑定服务商 AppID）</td><td>可用 <code>appid + mchid</code> 下单</td></tr>
+    <tr><td>APIv3 密钥</td><td>商户平台 → 账户中心 → API 安全 → 设置 APIv3 密钥（32 字节）</td><td>用于回调报文 AES-256-GCM 解密</td></tr>
+    <tr><td>商户 API 证书</td><td>申请后下载 <code>apiclient_key.pem</code>、<code>apiclient_cert.pem</code></td><td>请求签名（私钥）+ 证书序列号 <code>serial_no</code></td></tr>
+    <tr><td>微信支付平台证书 / 公钥</td><td>用于验证回调签名；新商户建议直接用「微信支付公钥」模式</td><td><code>wechatpay_public_key.pem</code> 或平台证书</td></tr>
+    <tr><td>APP 支付开通</td><td>移动应用需在开放平台审核通过并上线，商户平台开通「APP 支付」</td><td>Android 可拉起微信收款</td></tr>
+  </table>
+
+  <h3>1.3 主体类型选择：能不能用“个人”</h3>
+  <p><strong>结论：自然人不可以，最低门槛是“个体工商户”。</strong>微信支付与微信开放平台对“个人（自然人）”均不开放完整能力，具体差异如下：</p>
+  <table>
+    <tr><th>主体</th><th>微信登录（开放平台）</th><th>Native 支付（电脑端）</th><th>APP 支付（安卓端）</th><th>可用性</th></tr>
+    <tr><td>自然人个人</td><td>不能认证，无法申请网站应用 / 移动应用</td><td>仅“小微商户 / 个人卖家”通道，需服务商进件</td><td>不支持</td><td class="bad">不可用</td></tr>
+    <tr><td>小微商户 / 个人卖家</td><td>不适用（无开放平台登录能力）</td><td>支持</td><td>不支持</td><td class="bad">不适用于本项目</td></tr>
+    <tr><td>个体工商户</td><td>支持（需开发者资质认证）</td><td>支持</td><td>支持</td><td class="ok">推荐</td></tr>
+    <tr><td>企业</td><td>支持</td><td>支持</td><td>支持</td><td class="ok">推荐</td></tr>
+  </table>
+  <div class="callout warn">
+    <b>“个人卖家 / 小微商户”为什么走不通：</b>
+    <ul>
+      <li>只能由<strong>微信支付服务商通过 API 进件</strong>，不能自己在商户平台注册；材料需身份证、结算银行卡，以及<strong>门店门口照 + 店内环境照</strong>。</li>
+      <li>支付权限仅<strong> JSAPI / Native / 付款码</strong>，<strong>不含 APP 支付</strong>，APK 内无法拉起微信付款。</li>
+      <li>官方明确<strong>仅限线下行业</strong>（餐饮、线下零售、居民生活服务、休闲娱乐、交通出行等），<strong>不支持线上直播、游戏等行业</strong>，一经发现可关闭支付权限。</li>
+      <li>微信开放平台开发者资质认证要求<strong>非个人主体</strong>，自然人无法申请网站应用/移动应用的微信登录。</li>
+    </ul>
+  </div>
+  <div class="callout tip">
+    <b>建议路径（个体户）：</b>注册个体工商户（各地可线上办理，经营范围写“网络技术服务 / 软件开发 / 信息技术服务”）→ 以个体户主体注册微信开放平台并完成开发者资质认证（约 300 元/年）→ 申请微信支付普通商户号 → 开通 <strong>Native + APP 支付</strong>（个体户<strong>不支持 H5 支付</strong>，本项目用不到）→ 用个体户资质完成域名 ICP 备案。整条链路与文档第 3–13 章完全一致。
+  </div>
+  <div class="callout warn">
+    <b>真正的审核风险不在主体，而在类目：</b>本项目为德州扑克 + 充值次数/积分，属于“游戏 / 虚拟币充值”类目。微信支付对游戏类商户通常要求版号、网络文化经营许可证等资质，棋牌/博彩类产品被拒概率高；即便个体户进件成功，也可能因风控被冻结结算。<strong>主体只是第一道门，类目合规才是决定能否长期收款的关键。</strong>
+  </div>
+
+  <h2 id="domain">2. 域名与 HTTPS（当前最大阻塞项）</h2>
+  <p>微信登录的 <code>redirect_uri</code>、支付的 <code>notify_url</code> 都必须是<strong>公网可访问的已备案域名</strong>，不能是 IP，不建议带端口。当前服务直接暴露 <code>192.144.159.220:8080</code>，需先完成：</p>
+  <ol class="steps">
+    <li>准备域名（如 <code>poker.example.com</code>），在腾讯云完成 <strong>ICP 备案</strong>（大陆服务器强制）。</li>
+    <li>用 Nginx/Caddy 监听 443，配置证书（腾讯云免费证书即可），反代到 <code>127.0.0.1:8080</code>。同机 80 端口已被 <code>camelup.service</code> 占用，<strong>不要动它</strong>。</li>
+    <li>在开放平台「网站应用 → 授权回调域」填写 <code>poker.example.com</code>（只填域名，不带协议与路径）。</li>
+    <li>把客户端在线基址从 <code>http://192.144.159.220:8080</code> 改为 <code>https://poker.example.com</code>（构建时 <code>UPDATE_BASE</code>）。</li>
+    <li>微信支付 <code>notify_url</code> 配为 <code>https://poker.example.com/api/pay/notify</code>，并确认外网可直接 POST 到达（不要加鉴权头、不要重定向）。</li>
+  </ol>
+  <pre><code># /etc/nginx/conf.d/poker.conf 参考
+server {
+  listen 443 ssl http2;
+  server_name poker.example.com;
+
+  ssl_certificate     /etc/ssl/poker/fullchain.pem;
+  ssl_certificate_key /etc/ssl/poker/privkey.pem;
+
+  location /api/pay/notify {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    client_max_body_size 256k;
+  }
+
+  location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    # SSE 必须关闭缓冲
+    proxy_buffering off;
+    proxy_read_timeout 3600s;
+  }
+}</code></pre>
+
+  <h2 id="login-web">3. 电脑端扫码登录（网站应用）</h2>
+  <p>适用于 <code>/play</code>。全流程无需 SDK，纯 HTTP。</p>
+  <ol class="steps">
+    <li>服务端生成授权地址，前端渲染二维码（可直接内嵌微信官方二维码页 <code>open.weixin.qq.com/connect/qrconnect</code>，也可用 <code>qrconnect</code> 返回的页面）。</li>
+    <li>用户扫码确认后，微信带着 <code>code</code> 重定向到你的回调地址。</li>
+    <li>服务端用 <code>code</code> 换 <code>access_token</code> 与 <code>openid</code>。</li>
+    <li>服务端拉取用户信息（昵称、头像、<code>unionid</code>）。</li>
+    <li>按 <code>unionid</code>/<code>openid</code> 查找或创建本站账户，签发本站 <code>token</code>（复用现有 30 天登录态）。</li>
+  </ol>
+  <pre><code>授权地址（前端跳转或生成二维码内容）：
+https://open.weixin.qq.com/connect/qrconnect
+  ?appid=WX_WEB_APPID
+  &redirect_uri=https%3A%2F%2Fpoker.example.com%2Fapi%2Fauth%2Fwechat%2Fcallback
+  &response_type=code
+  &scope=snsapi_login
+  &state=RANDOM_CSRF_TOKEN
+#wechat_redirect
+
+① code 换 token（服务端）
+GET https://api.weixin.qq.com/sns/oauth2/access_token
+    ?appid=WX_WEB_APPID&secret=WX_WEB_SECRET&code=CODE&grant_type=authorization_code
+→ { access_token, expires_in, refresh_token, openid, scope, unionid? }
+
+② 拉取用户信息（服务端）
+GET https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+→ { openid, nickname, sex, headimgurl, unionid, ... }</code></pre>
+  <div class="callout tip">
+    <b>state 必须校验：</b>授权前把随机 <code>state</code> 写入短期缓存（如 5 分钟有效），回调时比对，防止 CSRF 与登录劫持。回调完成后立即签发一次性 <code>ticket</code> 再跳回前端，避免把本站 token 暴露在 URL 中。
+  </div>
+
+  <h2 id="login-app">4. Android 微信登录（移动应用）</h2>
+  <p>APK 内是 WebView，<strong>不能</strong>在网页里直接完成微信 App 授权。方案：H5 通过 <code>NativeBridge</code> 调用原生微信 SDK，原生把 <code>code</code> 回传 H5，再由服务端换 token。</p>
+  <ol class="steps">
+    <li>开放平台创建「移动应用」，填写应用包名 <code>com.dezhounight.poker</code> 与签名 MD5（用打包 keystore 计算，<strong>无冒号、小写</strong>）。</li>
+    <li>引入微信 SDK（AAR）：<code>com.tencent.mm.opensdk:wechat-sdk-android:6.8.0</code>。当前工程是手工 aapt2/d8 打包，需把 AAR 解出的 <code>classes.jar</code> 参与 d8，并合并其 <code>AndroidManifest</code> 的 <code>WXEntryActivity</code> 声明。</li>
+    <li>新增 <code>wxapi/WXEntryActivity.java</code>（包名固定为 <code>你的包名.wxapi.WXEntryActivity</code>），在 <code>onResp</code> 中取 <code>SendAuth.Resp.code</code>。</li>
+    <li>在 <code>MainActivity</code> 注册 <code>IWXAPI</code>，暴露 <code>NativeBridge.wechatLogin()</code>，把 code 通过 <code>WebView.evaluateJavascript</code> 回传。</li>
+    <li>H5 收到 code 后调用 <code>/api/auth/wechat/login</code>（与网页端共用服务端逻辑）。</li>
+  </ol>
+  <pre><code>// app/src/main/java/com/dezhounight/poker/wxapi/WXEntryActivity.java
+package com.dezhounight.poker.wxapi;
+
+import android.app.Activity;
+import android.os.Bundle;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+    private IWXAPI api;
+
+    @Override protected void onCreate(Bundle b) {
+        super.onCreate(b);
+        api = WXAPIFactory.createWXAPI(this, "WX_APP_APPID", false);
+        api.registerApp("WX_APP_APPID");
+        api.handleIntent(getIntent(), this);
+    }
+
+    @Override public void onReq(BaseReq req) { finish(); }
+
+    @Override public void onResp(BaseResp resp) {
+        if (resp instanceof SendAuth.Resp) {
+            SendAuth.Resp r = (SendAuth.Resp) resp;
+            // r.errCode == 0 时 r.code 为授权码
+            MainActivity.deliverWechatCode(r.errCode, r.code, r.state);
+        }
+        finish();
+    }
+}</code></pre>
+  <pre><code>&lt;!-- AndroidManifest.xml 追加 --&gt;
+&lt;activity
+    android:name=".wxapi.WXEntryActivity"
+    android:exported="true"
+    android:taskAffinity="com.dezhounight.poker"
+    android:launchMode="singleTask" /&gt;</code></pre>
+  <div class="callout warn">
+    <b>签名校验：</b>微信会校验 APK 的实际签名 MD5 是否与开放平台填写一致。更换 keystore 后必须回平台更新签名，否则登录/支付一律返回 <code>errCode=-1</code>。
+  </div>
+
+  <h2 id="login-model">5. 账号合并与数据模型</h2>
+  <p>现有账户以手机号为主键（<code>store.users</code> 的 key 为 <code>phone</code>）。建议扩展为“手机号 + 微信身份”多登录方式：</p>
+  <pre><code>user = {
+  phone,                 // 仍保留；微信新用户可为空字符串（或生成占位）
+  name, pwdHash,         // 现有字段
+  wechat: {              // 新增
+    openId,              // 单应用内唯一
+    unionId,             // 跨应用统一（需绑定开放平台账号）
+    nickname, avatar,    // 仅展示用，需自行做内容安全处理
+    boundAt
+  },
+  points, todayPoints, plays, totalRecharge, honors, tokens
+}
+
+// 索引：wechat.unionId → phone，openId → phone（内存 Map 或持久化对象）</code></pre>
+  <table>
+    <tr><th>场景</th><th>处理规则</th></tr>
+    <tr><td>微信首次登录</td><td>创建账户，生成昵称（微信昵称截断 12 字），赠送 100 积分；提示绑定手机号以便找回</td></tr>
+    <tr><td>已绑定微信的手机号登录</td><td>沿用原账户，不重复发新手积分</td></tr>
+    <tr><td>微信 unionId 已绑定其他账户</td><td>直接登录原账户；若当前已登录另一账户，提示“是否切换”</td></tr>
+    <tr><td>同一微信绑定第二个手机号</td><td>拒绝，需先解绑（防止多账户刷新手积分）</td></tr>
+    <tr><td>解绑微信</td><td>要求短信/密码二次验证；解绑后仍可用手机号登录</td></tr>
+  </table>
+
+  <h2 id="login-api">6. 登录接口设计（新增）</h2>
+  <table>
+    <tr><th>方法 / 路径</th><th>用途</th><th>关键返回</th></tr>
+    <tr><td><code>GET /api/auth/wechat/url</code></td><td>生成扫码登录地址与 state</td><td><code>{ url, state }</code></td></tr>
+    <tr><td><code>GET /api/auth/wechat/callback</code></td><td>微信重定向回调：换 token、建/并账户</td><td>302 到 <code>/play?wechat_ticket=...</code></td></tr>
+    <tr><td><code>POST /api/auth/wechat/exchange</code></td><td>前端用一次性 ticket 换本站 token</td><td><code>{ token, account }</code></td></tr>
+    <tr><td><code>POST /api/auth/wechat/app</code></td><td>Android 传来的 <code>code</code> 换取登录</td><td><code>{ token, account }</code></td></tr>
+    <tr><td><code>POST /api/auth/wechat/bind</code></td><td>已登录账户绑定微信（需已登录 token）</td><td><code>{ ok, account }</code></td></tr>
+    <tr><td><code>POST /api/auth/wechat/unbind</code></td><td>解绑微信（需密码或短信验证）</td><td><code>{ ok }</code></td></tr>
+  </table>
+  <pre><code>// server.js 片段：code 换 openid / unionid
+async function wechatExchangeCode(code, appid, secret) {
+  const q = new URLSearchParams({
+    appid, secret, code, grant_type: 'authorization_code',
+  });
+  const res = await fetch(`https://api.weixin.qq.com/sns/oauth2/access_token?${q}`);
+  const data = await res.json();
+  if (!data.access_token) throw new Error(data.errmsg || 'wechat token failed');
+  const info = await (await fetch(
+    `https://api.weixin.qq.com/sns/userinfo?access_token=${data.access_token}` +
+    `&openid=${data.openid}&lang=zh_CN`
+  )).json();
+  return {
+    openId: data.openid,
+    unionId: data.unionid || info.unionid || '',
+    nickname: String(info.nickname || '微信玩家').slice(0, 12),
+    avatar: String(info.headimgurl || ''),
+  };
+}</code></pre>
+
+  <h2 id="pay-product">7. 支付产品选型</h2>
+  <table>
+    <tr><th>端</th><th>产品</th><th>接口</th><th>体验</th></tr>
+    <tr><td>电脑端 <code>/play</code></td><td>Native 支付（扫码）</td><td><code>/v3/pay/transactions/native</code></td><td>返回 <code>code_url</code>，前端渲染二维码，轮询订单状态</td></tr>
+    <tr><td>Android APK</td><td>APP 支付</td><td><code>/v3/pay/transactions/app</code></td><td>返回 <code>prepay_id</code>，二次签名后由微信 SDK 拉起</td></tr>
+    <tr><td>微信内 H5（若以后做公众号入口）</td><td>JSAPI 支付</td><td><code>/v3/pay/transactions/jsapi</code></td><td>需公众号网页授权 openid</td></tr>
+  </table>
+  <p>本项目当前只有 Web + WebView，因此<strong>先做 Native（电脑端）+ APP（APK）</strong>即可覆盖全部入口；APK 内若检测到微信客户端不可用，可降级为「在电脑端扫码支付」。</p>
+
+  <h2 id="pay-flow">8. 下单与回调时序</h2>
+  <ol class="steps">
+    <li>客户端选择套餐（1 元 / 6 元 / 30 元 / 98 元）。<strong>金额与到账内容必须由服务端按套餐 ID 决定</strong>，不接受前端传金额。</li>
+    <li>服务端创建订单（<code>out_trade_no</code> 唯一，<code>amount.total</code> 单位为<strong>分</strong>），调用微信下单接口。</li>
+    <li>返回 <code>code_url</code>（Native）或 <code>prepay_id</code>（APP）给客户端。</li>
+    <li>用户支付成功，微信向 <code>notify_url</code> POST 加密回调。</li>
+    <li>服务端：验签 → 解密 → 校验金额与订单号 → <strong>幂等发货</strong>（加次数/积分）→ 返回 200。</li>
+    <li>客户端轮询/查询订单状态（Native）或收到支付回调后刷新账户；APP 支付由 <code>WXPayEntryActivity</code> 回调结果。</li>
+    <li>若回调丢失：定时任务调用查单接口补单（见第 12 节）。</li>
+  </ol>
+
+  <h2 id="pay-code">9. APIv3 服务端实现骨架（零依赖，Node crypto）</h2>
+
+  <h3>9.1 请求签名与调用</h3>
+  <pre><code>const crypto = require('crypto');
+const fs = require('fs');
+
+const MCH_ID = process.env.WX_MCH_ID;
+const SERIAL_NO = process.env.WX_MCH_SERIAL_NO;      // 商户证书序列号
+const PRIVATE_KEY = fs.readFileSync(process.env.WX_MCH_KEY_PATH, 'utf8');
+
+function buildAuth(method, urlPath, body) {
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const nonce = crypto.randomBytes(16).toString('hex');
+  const message = `${method}\n${urlPath}\n${timestamp}\n${nonce}\n${body}\n`;
+  const signature = crypto.sign('RSA-SHA256', Buffer.from(message), PRIVATE_KEY).toString('base64');
+  return `WECHATPAY2-SHA256-RSA2048 mchid="${MCH_ID}",nonce_str="${nonce}",` +
+         `signature="${signature}",timestamp="${timestamp}",serial_no="${SERIAL_NO}"`;
+}
+
+async function wechatPay(method, urlPath, payload) {
+  const body = payload ? JSON.stringify(payload) : '';
+  const res = await fetch(`https://api.mch.weixin.qq.com${urlPath}`, {
+    method,
+    headers: {
+      Authorization: buildAuth(method, urlPath, body),
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Wechatpay-Serial': process.env.WX_PAY_PUBLIC_KEY_ID || '',
+      'User-Agent': 'dezhounight/1.0',
+    },
+    body: body || undefined,
+  });
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : {};
+  if (!res.ok) throw new Error(`wechat pay ${res.status}: ${data.message || text}`);
+  return data;
+}
+
+// Native 扫码下单
+function createNativeOrder({ orderNo, fen, description, notifyUrl }) {
+  return wechatPay('POST', '/v3/pay/transactions/native', {
+    appid: process.env.WX_WEB_APPID,
+    mchid: MCH_ID,
+    description,
+    out_trade_no: orderNo,
+    notify_url: notifyUrl,
+    amount: { total: fen, currency: 'CNY' },
+  });
+}
+
+// APP 下单
+function createAppOrder({ orderNo, fen, description, notifyUrl }) {
+  return wechatPay('POST', '/v3/pay/transactions/app', {
+    appid: process.env.WX_APP_APPID,
+    mchid: MCH_ID,
+    description,
+    out_trade_no: orderNo,
+    notify_url: notifyUrl,
+    amount: { total: fen, currency: 'CNY' },
+  });
+}</code></pre>
+
+  <h3>9.2 回调验签与解密</h3>
+  <pre><code>const PAY_PUBLIC_KEY = fs.readFileSync(process.env.WX_PAY_PUBLIC_KEY_PATH, 'utf8');
+
+function verifyNotify(headers, rawBody) {
+  const ts = headers['wechatpay-timestamp'];
+  const nonce = headers['wechatpay-nonce'];
+  const signature = headers['wechatpay-signature'];
+  const serial = headers['wechatpay-serial'];
+  if (!ts || !nonce || !signature) return false;
+  // 防重放：时间戳 5 分钟内
+  if (Math.abs(Date.now() / 1000 - Number(ts)) &gt; 300) return false;
+  if (process.env.WX_PAY_PUBLIC_KEY_ID &amp;&amp; serial !== process.env.WX_PAY_PUBLIC_KEY_ID) return false;
+  const message = `${ts}\n${nonce}\n${rawBody}\n`;
+  return crypto.verify('RSA-SHA256', Buffer.from(message), PAY_PUBLIC_KEY,
+    Buffer.from(signature, 'base64'));
+}
+
+function decryptResource(resource) {
+  const key = Buffer.from(process.env.WX_API_V3_KEY, 'utf8');       // 32 字节
+  const data = Buffer.from(resource.ciphertext, 'base64');
+  const authTag = data.subarray(data.length - 16);
+  const ciphertext = data.subarray(0, data.length - 16);
+  const decipher = crypto.createDecipheriv('aes-256-gcm', key, Buffer.from(resource.nonce, 'utf8'));
+  decipher.setAuthTag(authTag);
+  decipher.setAAD(Buffer.from(resource.associated_data || '', 'utf8'));
+  return JSON.parse(Buffer.concat([decipher.update(ciphertext), decipher.final()]).toString('utf8'));
+}
+
+// 回调路由：必须读取原始 body（不要先 JSON.parse）
+// POST /api/pay/notify
+async function handleNotify(req, res, rawBody) {
+  if (!verifyNotify(req.headers, rawBody)) {
+    res.writeHead(401, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ code: 'FAIL', message: '签名验证失败' }));
+  }
+  const payload = JSON.parse(rawBody);
+  const data = decryptResource(payload.resource);   // { out_trade_no, trade_state, amount, ... }
+  if (data.trade_state !== 'SUCCESS') {
+    res.writeHead(200); return res.end('');         // 非成功状态按要求应答
+  }
+  await fulfilOrder(data.out_trade_no, data.amount.total);   // 幂等发货
+  res.writeHead(200); res.end('');
+}</code></pre>
+  <div class="callout warn">
+    <b>原始报文：</b>验签必须使用<strong>未解析的原始 JSON 字符串</strong>。现有 <code>readBody()</code> 会直接 <code>JSON.parse</code>，需为 <code>/api/pay/notify</code> 单独读取 <code>Buffer</code> 并保留原串，否则验签必然失败。
+  </div>
+
+  <h2 id="pay-client">10. 客户端拉起支付</h2>
+  <h3>10.1 电脑端（Native 扫码）</h3>
+  <pre><code>// 1) 下单
+const order = await account.createOrder('pack_1');   // 服务端按套餐返回 { orderNo, codeUrl }
+// 2) 用二维码库渲染 codeUrl（weixin://wxpay/bizpayurl?...）
+// 3) 每 2 秒轮询
+const timer = setInterval(async () => {
+  const st = await account.orderStatus(order.orderNo);   // { status: 'pending'|'paid' }
+  if (st.status === 'paid') {
+    clearInterval(timer);
+    await account.refresh();          // 刷新次数/积分
+    toast(`充值成功：+${st.granted.plays} 次，+${st.granted.points} 积分`);
+  }
+}, 2000);</code></pre>
+
+  <h3>10.2 Android（APP 支付）</h3>
+  <pre><code>// 服务端返回二次签名参数（用商户私钥再次 RSA-SHA256 签名）
+{
+  appid, partnerid: mchid, prepayid: prepay_id,
+  package: 'Sign=WXPay', noncestr, timestamp, sign
+}
+
+// 原生拉起
+PayReq req = new PayReq();
+req.appId = appid; req.partnerId = partnerid; req.prepayId = prepayid;
+req.packageValue = "Sign=WXPay"; req.nonceStr = noncestr;
+req.timeStamp = timestamp; req.sign = sign;
+api.sendReq(req);
+
+// 结果回调在 wxapi/WXPayEntryActivity.onResp：0 成功 / -1 失败 / -2 取消
+// 注意：回调结果仅作提示，最终以服务端订单状态为准</code></pre>
+  <div class="callout tip">
+    <b>验收口径：</b>不要依据客户端回调判断到账，必须以服务端订单状态（回调或查单）为准，避免用户强杀进程导致“付了没到账”。
+  </div>
+
+  <h2 id="pay-order">11. 订单表与发货幂等</h2>
+  <pre><code>orders: {
+  "DN20261023ABCD1234": {
+    orderNo, phone, packId: 'pack_1',
+    fen: 100, yuan: 1,
+    channel: 'native' | 'app',
+    status: 'created' | 'paid' | 'delivered' | 'closed' | 'refunded',
+    prepayId, codeUrl,
+    transactionId, paidAt, deliveredAt,
+    granted: { plays: 10, points: 100 },
+    createdAt
+  }
+}</code></pre>
+  <table>
+    <tr><th>规则</th><th>说明</th></tr>
+    <tr><td>服务端定价</td><td>套餐 ID → 金额/到账内容写死在服务端，前端只能传 <code>packId</code></td></tr>
+    <tr><td>订单号唯一</td><td><code>DN + 时间戳 + 随机</code>；同一订单重复下单返回原 <code>codeUrl</code></td></tr>
+    <tr><td>金额核对</td><td>回调金额必须等于订单金额，不等则拒绝发货并告警</td></tr>
+    <tr><td>幂等发货</td><td><code>if (order.status === 'delivered') return;</code> 发货后原子写 <code>delivered</code>；并发用单线程队列或文件锁</td></tr>
+    <tr><td>超时关单</td><td>15 分钟未支付调用 <code>/v3/pay/transactions/out-trade-no/{no}/close</code></td></tr>
+    <tr><td>归属校验</td><td>回调中的 <code>mchid/appid</code> 必须与配置一致，防跨商户伪造</td></tr>
+  </table>
+  <pre><code>async function fulfilOrder(orderNo, paidFen) {
+  const order = store.orders.get(orderNo);
+  if (!order) return;
+  if (order.status === 'delivered') return;                 // 幂等
+  if (paidFen !== order.fen) { console.error('[pay] 金额不符', orderNo, paidFen); return; }
+  const user = store.users.get(order.phone);
+  if (!user) return;
+  user.plays = (user.plays || 0) + order.granted.plays;
+  user.points = (user.points || 0) + order.granted.points;
+  user.todayPoints = (user.todayPoints || 0) + order.granted.points;
+  user.totalRecharge = (user.totalRecharge || 0) + order.yuan;
+  order.status = 'delivered';
+  order.deliveredAt = Date.now();
+  saveStore();
+}</code></pre>
+
+  <h2 id="pay-ops">12. 退款、对账与补单</h2>
+  <ul>
+    <li><strong>补单</strong>：每 60 秒扫描 <code>status=created</code> 且超过 2 分钟的订单，调用查单接口 <code>GET /v3/pay/transactions/out-trade-no/{no}?mchid=</code>，<code>trade_state=SUCCESS</code> 时按回调同样逻辑发货。</li>
+    <li><strong>退款</strong>：<code>POST /v3/refund/domestic/refunds</code>，传 <code>out_trade_no</code>、<code>out_refund_no</code>、<code>amount.refund/ total/currency</code>；退款成功后必须<strong>回收已发放的次数与积分</strong>（允许扣成 0，不允许负数），并在账单中留痕。</li>
+    <li><strong>对账</strong>：每日下载 <code>/v3/bill/tradebill?bill_date=YYYY-MM-DD&amp;bill_type=ALL</code>，逐笔比对订单表，差异告警。</li>
+    <li><strong>日志</strong>：订单号、金额、状态可留；<strong>不记录</strong> openid、手机号全量、证书与密钥。</li>
+  </ul>
+
+  <h2 id="repo">13. 本仓库改造清单</h2>
+  <table>
+    <tr><th>文件</th><th>改动</th><th>备注</th></tr>
+    <tr><td><code>server/server.js</code></td><td>新增 <code>/api/auth/wechat/*</code>、<code>/api/pay/create</code>、<code>/api/pay/notify</code>、<code>/api/pay/order/:no</code>、<code>/api/pay/refund</code></td><td>回调路由必须读原始 body；<code>store</code> 增加 <code>orders</code> 与 <code>stateCache</code></td></tr>
+    <tr><td><code>server/wechat.js</code>（新增）</td><td>授权、下单、验签、解密、查单、退款封装</td><td>零依赖，仅用 <code>crypto</code> 与 <code>fetch</code></td></tr>
+    <tr><td><code>src/account.js</code></td><td>新增 <code>loginWithWechat</code>、<code>createOrder</code>、<code>orderStatus</code>；充值弹窗改为“选择套餐 → 弹二维码/拉起微信 → 轮询”</td><td>现有模拟充值保留为开发环境开关 <code>PAY_MOCK=1</code></td></tr>
+    <tr><td><code>index.html</code></td><td>登录弹窗增加「微信登录」按钮；新增支付二维码弹窗与被扫状态</td><td>电脑端显示二维码，移动端显示“拉起微信支付”</td></tr>
+    <tr><td><code>src/style.css</code></td><td>二维码弹窗、状态提示样式</td><td>复用现有 modal 与金色主题</td></tr>
+    <tr><td><code>android/.../MainActivity.java</code></td><td>注册 <code>IWXAPI</code>，新增 <code>wechatLogin()</code> / <code>wechatPay()</code> 桥接</td><td>code / 支付参数通过 JS 回传</td></tr>
+    <tr><td><code>android/.../wxapi/WXEntryActivity.java</code>（新增）</td><td>处理登录与支付回调</td><td>包名必须为 <code>com.dezhounight.poker.wxapi</code></td></tr>
+    <tr><td><code>AndroidManifest.xml</code></td><td>声明 <code>WXEntryActivity</code>、<code>queries</code> 中加 <code>com.tencent.mm</code></td><td>Android 11+ 需显式查询微信包名</td></tr>
+    <tr><td><code>scripts/build-apk.ps1</code></td><td>AAR 解包合并 <code>classes.jar</code> 与 manifest；打包时读取签名 MD5 便于核对</td><td>当前为无 Gradle 手工打包</td></tr>
+    <tr><td><code>scripts/deploy_server.py</code></td><td>上传 <code>server/wechat.js</code>；证书文件放 <code>/opt/dezhounight/certs</code> 且权限 600</td><td>禁止把私钥放进客户端或仓库</td></tr>
+  </table>
+
+  <h2 id="env">14. 环境变量与部署</h2>
+  <pre><code># /etc/systemd/system/dezhounight.service → Environment= 或 EnvironmentFile=/opt/dezhounight/.env
+WX_WEB_APPID=wx................
+WX_WEB_SECRET=..................
+WX_APP_APPID=wx................
+WX_MCH_ID=1900000000
+WX_MCH_SERIAL_NO=..................
+WX_MCH_KEY_PATH=/opt/dezhounight/certs/apiclient_key.pem
+WX_PAY_PUBLIC_KEY_ID=PUB_KEY_ID_...
+WX_PAY_PUBLIC_KEY_PATH=/opt/dezhounight/certs/wechatpay_public_key.pem
+WX_API_V3_KEY=32位APIv3密钥
+PAY_NOTIFY_URL=https://poker.example.com/api/pay/notify
+PAY_MOCK=0
+ADMIN_PHONE=你的管理员手机号</code></pre>
+  <pre><code>sudo install -d -m 700 -o ubuntu -g ubuntu /opt/dezhounight/certs
+sudo chmod 600 /opt/dezhounight/certs/*.pem
+sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart dezhounight</code></pre>
+  <div class="callout warn">
+    <b>密钥红线：</b>商户私钥、APIv3 密钥、AppSecret 只允许存在于服务端；不得写入 APK、前端 JS、Git 或聊天记录。建议接入后立即轮换当前已暴露的服务器登录密码。
+  </div>
+
+  <h2 id="test">15. 联调与验收用例</h2>
+  <table>
+    <tr><th>用例</th><th>预期</th></tr>
+    <tr><td>电脑端扫码登录</td><td>扫码后回到 <code>/play</code> 并已登录；昵称/头像正确；重复登录不重复发新手积分</td></tr>
+    <tr><td>微信登录绑定手机号</td><td>绑定后同一账户可用手机号登录；解绑后微信不能再进原账户</td></tr>
+    <tr><td>Android 微信登录</td><td><code>errCode=0</code> 拿到 code；取消登录有提示；未安装微信降级提示</td></tr>
+    <tr><td>下单金额校验</td><td>篡改前端 <code>packId/金额</code> 无法影响实际支付金额与到账内容</td></tr>
+    <tr><td>回调验签</td><td>伪造签名 401；时间戳超 5 分钟拒绝；重复回调只发一次货</td></tr>
+    <tr><td>掉单补单</td><td>阻断回调后，60 秒内查单补发成功</td></tr>
+    <tr><td>退款</td><td>退款成功、次数与积分被回收、订单置 <code>refunded</code></td></tr>
+    <tr><td>并发</td><td>同一订单两次回调并发，最终只加一次次数/积分</td></tr>
+  </table>
+  <p>微信支付 APIv3 <strong>无沙箱环境</strong>，联调使用真实小额（如 1 分/1 元）下单并原路退款验证。</p>
+
+  <h2 id="legal">16. 合规风险提示（务必先评估）</h2>
+  <ul>
+    <li><strong>棋牌类目资质</strong>：德州扑克属于棋牌类游戏，境内运营通常需要游戏版号、文网文/ICP 相关资质、实名与防沉迷；应用商店上架也会审核玩法与付费点。</li>
+    <li><strong>涉赌红线</strong>：只要“充值 → 参与牌局 → 积分/筹码可提现或兑换实物/变现”，就可能被认定为赌博或变相赌博。当前设计是“充值买次数 + 积分排行”，务必保证：积分<strong>不可提现、不可转让、不可兑换实物</strong>，筹码纯虚拟且不可交易，并显著声明“虚拟道具、仅供娱乐”。</li>
+    <li><strong>未成年人保护</strong>：需实名认证与限额，禁止未成年人充值；支付前应做年龄与实名校验。</li>
+    <li><strong>苹果端限制</strong>：iOS 上虚拟道具需走 App 内购买（IAP），微信支付不可用于购买虚拟币；当前只有 Android 与 Web，暂不涉及。</li>
+    <li><strong>退款与消费者权益</strong>：需有明确的虚拟道具退款规则、客服入口与订单查询，避免投诉与支付通道风控。</li>
+  </ul>
+  <div class="callout warn">
+    <b>建议：</b>在上线收费前完成一次法务评估，并把“充值获得的次数/积分”定义为<strong>不可退款、不可转让的虚拟服务凭证</strong>（或保留未使用部分的退款通道），同时在页面显著位置公示规则。本文件仅提供技术接入方案，不构成法律意见。
+  </div>
+
+  <h3>官方参考</h3>
+  <ul>
+    <li>微信开放平台 · 网站应用微信登录：<code>developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html</code></li>
+    <li>移动应用微信登录（Android）：<code>developers.weixin.qq.com/doc/oplatform/Mobile_App/WeChat_Login/Development_Android.html</code></li>
+    <li>微信支付 APIv3 签名与验签：<code>pay.weixin.qq.com/doc/v3/merchant/4012365334</code></li>
+    <li>Native 下单：<code>pay.weixin.qq.com/doc/v3/merchant/4012791856</code>；APP 下单：<code>.../4012791884</code></li>
+    <li>支付结果通知与解密：<code>pay.weixin.qq.com/doc/v3/merchant/4012791897</code></li>
+  </ul>
+
+  <div class="footer">
+    文档版本 1.0 · 适用工程：德扑之夜（1.0.10 / versionCode 11）· 编写时间 2026-10-23<br />
+    文中接口路径、金额单位（分）、签名串格式均以微信支付 APIv3 官方文档为准，接入前请再核对一次官方最新版本。
+  </div>
+</main>
+</div>
+</body>
+</html>

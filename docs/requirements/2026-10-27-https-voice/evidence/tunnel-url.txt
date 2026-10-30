@@ -1,0 +1,12 @@
+# Temporary HTTPS URL - STOPPED
+# localhost.run free tunnel timed out repeatedly and rotated URLs every ~20-40 min.
+# No current temporary URL is available. Use a stable domain + TLS for TestFlight.
+2026-10-27 22:10 +08:00
+Last URL (dead): https://a4b45d01ebd4a2.lhr.life/play
+Previous URLs (dead): 56f32046dd5f12, 68bfcc0cf84571, 42f2345c1cb927, d15edbd0cf211e
+Method: Windows local proxy (Node, port 18080) + localhost.run SSH tunnel
+Origin: http://192.144.159.220:8080 (production 1.1.14, has install sheet)
+Chunk loader: /play (loader) -> /__chunk/meta + 11 gzip 128KB chunks -> document.write
+Voice: browser getUserMedia + wss://<host>/api/voice-relay through the same tunnel
+Caveats: temporary; this Windows machine and tunnel must stay running; TLS terminates at localhost.run;
+         use a test account, not a real password; not a production URL.

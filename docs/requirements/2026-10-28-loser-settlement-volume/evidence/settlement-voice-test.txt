@@ -1,0 +1,12 @@
+﻿结算（1.1.27 / 134）
+- 输家 stack=0，spectator=true
+- state.settlement=true
+- #singleSettle hidden=false
+- 标题“本手结算”，显示赢家、底牌、牌型、获得筹码
+- 截图 loser-settlement.png
+
+音量
+- 默认 large，playbackGain.gain=3
+- small=1, medium=2, large=3, extraLarge=3.5, huge=4
+- 设置后 localStorage pokerVoiceVolume 持久化
+- 测试 extraLarge 生效，gain=3.5

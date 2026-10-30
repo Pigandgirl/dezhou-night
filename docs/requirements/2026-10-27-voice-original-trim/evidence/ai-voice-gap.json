@@ -1,0 +1,74 @@
+{
+  "version": "1.1.11",
+  "mode": "single-vs-AI",
+  "pageErrors": [],
+  "log": [
+    {
+      "kind": "name",
+      "label": "阿凯",
+      "rate": 1,
+      "rawDuration": 1.368,
+      "played": 0.578,
+      "trimStart": 0.196,
+      "start": 7326,
+      "end": 7942
+    },
+    {
+      "kind": "clip",
+      "label": "",
+      "rate": 1,
+      "rawDuration": 1.224,
+      "played": 0.45,
+      "trimStart": 0.183,
+      "start": 7942,
+      "end": 8394
+    },
+    {
+      "kind": "clip",
+      "label": "",
+      "rate": 1,
+      "rawDuration": 1.152,
+      "played": 0.397,
+      "trimStart": 0.177,
+      "start": 8394,
+      "end": 8793
+    },
+    {
+      "kind": "action",
+      "keys": [
+        "en_call",
+        "en_two"
+      ],
+      "start": 7942,
+      "end": 8793
+    },
+    {
+      "kind": "name",
+      "label": "牛头",
+      "rate": 1,
+      "rawDuration": 1.344,
+      "played": 0.612,
+      "trimStart": 0.16,
+      "start": 8793,
+      "end": 9433
+    },
+    {
+      "kind": "clip",
+      "label": "",
+      "rate": 1,
+      "rawDuration": 1.32,
+      "played": 0.585,
+      "trimStart": 0.161,
+      "start": 9433,
+      "end": 10029
+    },
+    {
+      "kind": "action",
+      "keys": [
+        "fold"
+      ],
+      "start": 9433,
+      "end": 10029
+    }
+  ]
+}

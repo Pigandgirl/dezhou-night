@@ -1,0 +1,4 @@
+﻿倒计时 UI 实测
+文本：已准备 2/4 · 下一手 15s
+onlineNextCounts：{ready:2,total:4}
+截图：ready-countdown.png

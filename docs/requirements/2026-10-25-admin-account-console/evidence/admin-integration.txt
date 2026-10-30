@@ -1,0 +1,16 @@
+﻿admin 账号集成测试
+admin 登录后按钮:
+- hidden=false
+- rect x=1006 y=30 w=85.9 h=38
+- innerText=后台管理
+- 点击 URL=http://127.0.0.1:11609/admin#token=...
+普通账号:
+- isAdmin 不存在/无权限
+- 后台管理按钮 hidden=true
+
+后台页面:
+- hash token 自动登录，loginView hidden，appView visible
+- 统计：注册用户/在线玩家/进行中游戏/服务器连接/服务器内存/累计对局
+- 6 秒内 overview 请求 2 次（5 秒实时刷新）
+- normal token /api/admin/overview = 401
+- admin game token /api/admin/overview = 200

@@ -1,0 +1,10 @@
+﻿牌面清理/清晰度测试
+清空前 CardManager 牌组数：0
+scene.clearCards() 后：0
+手动向场景加入一张旧牌后：1
+scene.clearCards() 再次后：0
+renderDpr：1.25
+window.devicePixelRatio：2
+牌面 texture anisotropy：16
+牌面纹理宽度：288px
+pageerror：无

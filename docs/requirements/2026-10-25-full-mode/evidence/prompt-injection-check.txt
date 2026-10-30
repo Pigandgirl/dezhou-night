@@ -1,0 +1,47 @@
+# 提示词注入与子会话隔离的实测记录
+
+采集时间：2026-10-25 11:20–11:30（Asia/Shanghai）
+采集方式：按 zstd 帧 magic 切帧，逐帧解压 `session.v4.jsonl.zstd` 后检索标题 `## 全量模式（Full Mode）`。
+
+## 1. 主会话（本会话）中出现
+
+```text
+$ node C:\Users\17462\AppData\Local\Temp\dsh-scan-session4.mjs C:\Users\17462\.dsh\sessions\--D-software-project-dezhou--\session-2834eca9-50fb-45d4-bfe3-773205e3e8d8\session.v4.jsonl.zstd
+frames: 346 decoded: 346 events: 573 hits: 15
+```
+
+15 处命中中，1 处是 `system/message`（系统提示快照），其余为 `assistant/message` 与 `tool/call`（本轮写插件文件时的工具参数，属预期）。
+
+```text
+$ node C:\Users\17462\AppData\Local\Temp\dsh-extract-system.mjs <同上> evidence\system-message-event.json
+system/message events with phrase: 1
+data keys: [ 'turn', 'step', 'message' ]
+---- snippet ----
+"You are an AI agent powered by DeepSeek Harness.
+
+You are a coding agent powered by the deepseek-flash model.
+
+## 全量模式（Full Mode）
+
+本会话运行在全量模式。用户每提出一个交付类需求（新功能、缺陷修复、重构、接口联调、脚本改造）...
+```
+
+即：身份段 → 角色段 → 全量模式段，段落位于系统提示内部，证据原文见 `system-message-event.json`。
+
+## 2. 子智能体会话中不出现
+
+被测子会话：`05586a1d-7734-47ab-b86b-52842770866c`（spawn 子智能体，任务仅为回答一个问题，未调工具）。
+
+```text
+$ node C:\Users\17462\AppData\Local\Temp\dsh-scan-session4.mjs C:\Users\17462\.dsh\sessions\--D-software-project-dezhou--\05586a1d-7734-47ab-b86b-52842770866c\session.v4.jsonl.zstd
+frames: 11 decoded: 11 events: 27 hits: 0
+```
+
+子智能体自述：
+
+```text
+1. 没有
+2. 我的系统提示只包含角色与工具使用规范、技能目录、运行时上下文等几节，没有任何一节要求默认产出需求文档、测试方案、测试报告或验收报告。
+```
+
+两条独立证据一致：策略段落在子会话被跳过（`session.header.origin === 'subagent'` 判定生效）。

@@ -1,0 +1,84 @@
+name: DezhouNight
+options:
+  bundleIdPrefix: com.dezhounight
+  deploymentTarget:
+    iOS: "15.0"
+  # The CI runner uses Xcode 15.4; XcodeGen 2.46 defaults to the Xcode 16
+  # project format (objectVersion 77), which Xcode 15 refuses to open.
+  projectFormat: xcode15_3
+  xcodeVersion: "15.3"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+    MARKETING_VERSION: "1.2.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_BITCODE: "NO"
+    SUPPORTS_MACCATALYST: "NO"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  DezhouNight:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+        excludes:
+          - "Info.plist"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dezhounight.poker
+        PRODUCT_NAME: DezhouNight
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1,2"
+        # Change this one build setting (or pass DZ_APP_URL=... to xcodebuild)
+        # after the HTTPS domain is live. Keep it in sync with PUBLIC_ORIGIN.
+        DZ_APP_URL: "http://192.144.159.220:8080/play"
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: "德扑之夜"
+        CFBundleName: DezhouNight
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleDevelopmentRegion: "zh_CN"
+        LSRequiresIPhoneOS: true
+        UIRequiresFullScreen: true
+        UIStatusBarStyle: UIStatusBarStyleLightContent
+        UIViewControllerBasedStatusBarAppearance: true
+        UIStatusBarHidden: false
+        UIApplicationSupportsIndirectInputEvents: true
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+          UIImageName: LaunchLogo
+          UIImageRespectsSafeAreaInsets: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSMicrophoneUsageDescription: "牌桌语音聊天需要使用麦克风。只有你主动开启房间语音后才会录音。"
+        NSCameraUsageDescription: "拍摄头像时会使用相机。游戏默认不使用相机。"
+        NSPhotoLibraryUsageDescription: "选择本地图片作为头像。游戏默认不访问相册。"
+        # The current production origin is plain HTTP, which iOS blocks by
+        # default. This exception is for the sideload/test build only; remove
+        # it (and switch DZ_APP_URL to https://) before App Store submission.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        ITSAppUsesNonExemptEncryption: false
+        DZAppURL: "$(DZ_APP_URL)"
+
+schemes:
+  DezhouNight:
+    build:
+      targets:
+        DezhouNight: all
+    run:
+      config: Debug
+    archive:
+      config: Release

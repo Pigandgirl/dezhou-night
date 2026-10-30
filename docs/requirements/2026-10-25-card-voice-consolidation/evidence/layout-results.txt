@@ -1,0 +1,16 @@
+﻿移动端布局测试（844x390）
+顶部麦克风按钮文本: ""（仅图标）
+独立多选按钮: 不存在
+麦克风按钮: 42x42 圆形
+语音弹窗: 打开成功
+右上角关闭 X: 存在
+主开关初始: voice-master-card（LISTEN）
+点击主开关后: voice-master-card on / ON / 语音已开启
+麦克风 enabled: true
+接收 listening: true
+AudioContext: running
+
+底牌面板:
+display=flex
+x=150, y=6, width=131.98, height=87
+原来 bottom=297px，现在 top=6px，位于标题右侧。

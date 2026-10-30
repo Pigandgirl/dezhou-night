@@ -1,0 +1,20 @@
+﻿# iOS CI run 2026-10-27 17:03:00 +08:00
+repo: https://github.com/Pigandgirl/dezhounight-ios (private)
+run: https://github.com/Pigandgirl/dezhounight-ios/actions/runs/40476087454
+commit: 35c78521018d3a770e91ea5b8c3328865b9ed173
+run status: completed / success
+steps:
+  1. Set up job: success
+  2. Checkout: success
+  3. Install XcodeGen: success
+  4. Generate Xcode project: success
+  5. Build unsigned device archive: success
+  6. Package unsigned IPA: success
+  7. Build for iPhone simulator: success
+  8. Launch on iPhone simulator and screenshot: success
+  9. Upload unsigned IPA: success
+  10. Upload simulator screenshot: success
+  20. Post Checkout: success
+  21. Complete job: success
+artifact sha256: fb52e5d059957117fa008bba927b66ef0695eba1ea2b64b5f676a099c367ba5d  DezhouNight-unsigned.ipa
+ipa size: 754731 bytes

@@ -1,0 +1,22 @@
+# TLS reverse proxy for Dezhou Night (Caddy 2)
+#
+# 1. Point poker.example.com at the server.
+# 2. Replace the domain below.
+# 3. Keep 8080 reachable only while older APKs (which still use
+#    http://IP:8080) are in the wild; otherwise firewall it and only expose 443.
+#
+# Caddy obtains and renews the certificate automatically.
+
+poker.example.com {
+	encode zstd gzip
+
+	# SSE: disable response buffering.
+	reverse_proxy 127.0.0.1:8080 {
+		flush_interval -1
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+}
