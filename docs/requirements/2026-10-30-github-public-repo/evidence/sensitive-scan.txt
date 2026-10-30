@@ -1,0 +1,8 @@
+﻿== tracked sensitive paths (should be none) ==
+none
+== keystore in tree ==
+cat-file exit=128
+== lhr_key in tree ==
+cat-file exit=128
+== private key content scan ==
+none

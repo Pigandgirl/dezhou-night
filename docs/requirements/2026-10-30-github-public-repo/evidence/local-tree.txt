@@ -1,0 +1,17 @@
+﻿== git ls-files count ==
+2449
+== git ls-tree summary ==
+files=2449 total_bytes=100622416 total_mb=95.96 max_bytes=2176538 max_mb=2.08 max_path=docs/requirements/2026-10-27-ios-app/evidence/ios-simulator-raw.png
+== top-level file counts ==
+546	server
+533	android
+513	public
+455	docs
+220	src
+118	<root>
+33	qa
+15	ios
+10	scripts
+3	deploy
+2	.github
+1	shared

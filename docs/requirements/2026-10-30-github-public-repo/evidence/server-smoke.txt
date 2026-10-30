@@ -1,0 +1,10 @@
+﻿/api/health -> HTTP 200  237 bytes
+/play -> HTTP 200  1486495 bytes
+/admin -> HTTP 200  36851 bytes
+health: {"ok":true,"service":"dezhounight","rooms":4,"users":0,"connections":0,"games":0,"features":{"matchEnabled":true,"lanEnabled":true,"onlineEnabled":true,"chipRefillMinutes":60,"chipGrant":100},"uptime":4,"time":"2026-10-30T10:12:48.712Z"}
+starter: 2026-10-30T18:12:44
+--- stdout ---
+dezhounight server listening on 18080
+[static] compressed warm web/index.html
+[static] compressed warm admin/index.html
+--- stderr ---

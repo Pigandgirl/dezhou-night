@@ -1,0 +1,24 @@
+﻿== gh repo view ==
+{"defaultBranchRef":{"name":"main"},"description":"Dezhou Night - first-person 3D Texas Hold'em (Web / Android / iOS)","isPrivate":false,"name":"dezhou-night","url":"https://github.com/Pigandgirl/dezhou-night","visibility":"PUBLIC"}
+== branches ==
+main
+== default branch ==
+main
+== size(KB, API) ==
+0
+== remote tree entries ==
+2636
+== remote sensitive paths ==
+none
+== remote blobs ==
+blobs=2449 total_bytes=100622416 total_mb=95.96 max_bytes=2176538 max_mb=2.08
+== commits on main ==
+2
+== anonymous HTTP ==
+repo_page HTTP 200 bytes 498052
+raw_readme HTTP 200 bytes 7136
+raw_src_main HTTP 200 bytes 7384
+== actions ==
+in_progress		docs: 添加 GitHub 公开仓库测试报告与验收报告	iOS Build	main	push	41039465881	2m25s	2026-10-30T10:15:55Z
+completed	cancelled	docs: 添加 GitHub 公开仓库测试报告与验收报告	iOS Build	main	push	41039346692	56s	2026-10-30T10:15:01Z
+completed	cancelled	feat: 德扑之夜 1.1.34 源码与文档首次公开	iOS Build	main	push	41038957923	3m11s	2026-10-30T10:11:52Z
